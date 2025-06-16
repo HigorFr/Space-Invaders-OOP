@@ -1,4 +1,8 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import jogo.entidades.Player;
 
 /***********************************************************************/
 /*                                                                     */
@@ -80,15 +84,10 @@ public class Main {
 
 		/* variáveis do player */
 		
-		int player_state = ACTIVE;						// estado
-		double player_X = GameLib.WIDTH / 2;					// coordenada x
-		double player_Y = GameLib.HEIGHT * 0.90;				// coordenada y
-		double player_VX = 0.25;						// velocidade no eixo x
-		double player_VY = 0.25;						// velocidade no eixo y
-		double player_radius = 12.0;						// raio (tamanho aproximado do player)
-		double player_explosion_start = 0;					// instante do início da explosão
-		double player_explosion_end = 0;					// instante do final da explosão
-		long player_nextShot = currentTime;					// instante a partir do qual pode haver um próximo tiro
+
+		player jogador = new Player(currentTime);
+
+
 
 		/* variáveis dos projéteis disparados pelo player */
 		
@@ -194,6 +193,11 @@ public class Main {
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
+		List<EProjetil> projeteis = new ArrayList<>();
+		List<EProjetil> projeteis = new ArrayList<>();
+		List<EProjetil> projeteis = new ArrayList<>();
+		List<PProjetil> projeteis = new ArrayList<>();
+
 		while(running){
 		
 			/* Usada para atualizar o estado dos elementos do jogo    */

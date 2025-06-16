@@ -10,7 +10,7 @@ import java.awt.Color;
 /*                                                                     */
 /***********************************************************************/
 
-public class Main {
+public class MainBase {
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
