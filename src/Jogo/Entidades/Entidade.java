@@ -1,4 +1,5 @@
 package jogo.entidades;
+import jogo.util.Contexto;
 
 public abstract class Movel {
     public double cord_x;
@@ -43,6 +44,7 @@ public abstract class Entidade extends Movel {
 
     public int state;
 
+
     public int getState() {
         return state;
     }
@@ -50,8 +52,8 @@ public abstract class Entidade extends Movel {
         this.state = state;
     }
     
-    public static double getRadius();
-    public static double update();
+    public abstract double getRadius();
+    public abstract void update(Contexto ctx);
 
     
 }

@@ -1,6 +1,8 @@
 package jogo.inimigos;
 import jogo.GameLib;
 import jogo.entidades.Entidade;
+import jogo.util.Contexto;
+import jogo.projéteis.*;
 
 public abstract class Inimigo extends Entidade{
 	double angle;				// ângulos (indicam direção do movimento)
@@ -70,6 +72,34 @@ public abstract class Inimigo extends Entidade{
 
 		return false;
 	}
+
+
+    public void explodir(Long currentTime) {				
+        state = EXPLODING;
+        explosion_start = currentTime;
+        explosion_end = currentTime + 500;
+    }
+
+
+
+	public boolean recebeuBala(Contexto ctx){
+		
+		for(Projetil p : ctx.getProjeteis()){
+			if(p instanceof EProjetil) continue;
+
+			if(state == ACTIVE){
+			
+				double dx = cord_x - p.getCord_x();
+				double dy = cord_y - p.getCord_y();
+				double dist = Math.sqrt(dx * dx + dy * dy);
+				
+				if(dist < radius) return true;
+			}			
+
+		}
+		return false;
+	}
+
 
 
 }

@@ -3,6 +3,7 @@ package jogo.inimigos;
 import jogo.GameLib;
 import jogo.entidades.Player;
 import jogo.projéteis.EProjetil;
+import jogo.util.Contexto;
 
 public class Inimigo2 extends Inimigo {
     
@@ -11,7 +12,7 @@ public class Inimigo2 extends Inimigo {
     static double enemy2_spawnX = GameLib.WIDTH * 0.20;
     static int count = 0;
     
-    public static double getRadius() {
+    public double getRadius() {
         return radius;
     }
 
@@ -26,9 +27,14 @@ public class Inimigo2 extends Inimigo {
 	}
 
 
-    public void update(long tempoAtual, long delta, Player jogador){ //TODO: Adicionar lista de Projeteis
-        if(confereEstado(tempoAtual)){
+    public void update(Contexto ctx){ 
+        
+        if(recebeuBala(ctx)) explodir(ctx.getCurrentTime());
+        
+        if(confereEstado(ctx.getCurrentTime())){
             
+            double delta = ctx.getDelta();
+
             boolean shootNow = false;
             double previousY = cord_y;                      
             cord_x += cord_x * Math.cos(angle) * delta;
@@ -61,13 +67,11 @@ public class Inimigo2 extends Inimigo {
             if(shootNow){
 
                 double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
-                int [] freeArray = findFreeIndex(e_projectile_states, angles.length);
+                
+                for (int k = 0; k < angles.length; k++){
+                    
 
-                for(int k = 0; k < freeArray.length; k++){
-                    
-                    int free = freeArray[k];
-                    
-                    if(free < e_projectile_states.length){
+                    if(ctx.projeteis.size() < ctx.maxProjeteis){
                         
                         double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
                         double vx = Math.cos(a);
@@ -81,16 +85,18 @@ public class Inimigo2 extends Inimigo {
                         novo.setVelocity_Y(vy * 0.30); 
                         novo.setState(ACTIVE);
 
-
+                        ctx.projeteis.add(novo);
+                        ctx.colisores.add(novo);
 
                     }
                 }
             }
         }
     }
-
-
-
-
-
 }
+
+
+
+
+
+

@@ -25,31 +25,9 @@ public abstract class Projetil extends Entidade{
 
 
 
-public class PProjetil extends Projetil{
-    private static final double radius = 0.0;
-    
-    public void PProjetil(){
-        this.state = INACTIVE;
-    }
-    
-    
-    @Override
-    public double getRadius() {
-        return radius;
-    }
-}
 
-public class EProjetil extends Entidade{
-    private static final double radius = 2.0;
-    
-    public void EProjetil(){
-        this.state = INACTIVE;
-    } 
 
-    @Override
-    public double getRadius() {
-        return radius;
-    }
+
 
 }
 
