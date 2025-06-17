@@ -1,5 +1,7 @@
 package entidades;
 import util.Contexto;
+import java.util.List;
+
 
 
 public abstract class Entidade extends Movel {
@@ -20,5 +22,13 @@ public abstract class Entidade extends Movel {
     public abstract double getRadius();
     public abstract void update(Contexto ctx);
 
+    public <T extends Entidade> T encontrarEntidadeLivre(List<T> lista) {
+        for (T e : lista) {
+            if (e.getState() == 0) {
+                return e;
+            }
+        }
+        return null;
+    }
     
 }

@@ -86,7 +86,7 @@ public abstract class Inimigo extends Entidade{
 
 	public boolean recebeuBala(Contexto ctx){
 		
-		for(Projetil p : ctx.getProjeteis()){
+		for(Projetil p : ctx.getPProjeteis()){
 			if(p instanceof EProjetil) continue;
 
 			if(state == ACTIVE){
@@ -95,7 +95,7 @@ public abstract class Inimigo extends Entidade{
 				double dy = cord_y - p.getCord_y();
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				
-				if(dist < radius) return true;
+				if(dist < getRadius()) return true;
 			}			
 
 		}

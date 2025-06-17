@@ -1,9 +1,12 @@
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import gamelib.GameLib;
-import jogo.entidades.Player;
+import util.Contexto;
+import background.*;
+import entidades.*;
+import inimigos.*;
+import projéteis.*;
+
 
 /***********************************************************************/
 /*                                                                     */
@@ -15,160 +18,30 @@ import jogo.entidades.Player;
 /*                                                                     */
 /***********************************************************************/
 
-public class Main {
-	
-	/* Constantes relacionadas aos estados que os elementos   */
-	/* do jogo (player, projeteis ou inimigos) podem assumir. */
-	
-	public static final int INACTIVE = 0;
-	public static final int ACTIVE = 1;
-	public static final int EXPLODING = 2;
-	
-	/* Espera, sem fazer nada, até que o instante de tempo atual seja */
-	/* maior ou igual ao instante especificado no parâmetro "time.    */
-	
+public class MainBase {
+
+
+
+
 	public static void busyWait(long time){
 		
 		while(System.currentTimeMillis() < time) Thread.yield();
 	}
-	
-	/* Encontra e devolve o primeiro índice do  */
-	/* array referente a uma posição "inativa". */
-	
-	public static int findFreeIndex(int [] stateArray){
-		
-		int i;
-		
-		for(i = 0; i < stateArray.length; i++){
-			
-			if(stateArray[i] == INACTIVE) break;
-		}
-		
-		return i;
-	}
-	
-	/* Encontra e devolve o conjunto de índices (a quantidade */
-	/* de índices é defnida através do parâmetro "amount") do */
-	/* array referente a posições "inativas".                 */ 
 
-	public static int [] findFreeIndex(int [] stateArray, int amount){
 
-		int i, k;
-		int [] freeArray = new int[amount];
-
-		for(i = 0; i < freeArray.length; i++) freeArray[i] = stateArray.length; 
-		
-		for(i = 0, k = 0; i < stateArray.length && k < amount; i++){
-				
-			if(stateArray[i] == INACTIVE) { 
-				
-				freeArray[k] = i; 
-				k++;
-			}
-		}
-		
-		return freeArray;
-	}
-	
 	/* Método principal */
 	
 	public static void main(String [] args){
 
-		/* Indica que o jogo está em execução */
+		util.Contexto ctx = new Contexto();
+		ctx.setJogador(new Player(ctx.getCurrentTime()));
+
 
 		boolean running = true;
 
-		/* variáveis usadas no controle de tempo efetuado no main loop */
-		
-		long delta;
-		long currentTime = System.currentTimeMillis();
-
-		/* variáveis do player */
-		
-
-		player jogador = new Player(currentTime);
 
 
 
-		/* variáveis dos projéteis disparados pelo player */
-		
-		int [] projectile_states = new int[10];					// estados
-		double [] projectile_X = new double[10];				// coordenadas x
-		double [] projectile_Y = new double[10];				// coordenadas y
-		double [] projectile_VX = new double[10];				// velocidades no eixo x
-		double [] projectile_VY = new double[10];				// velocidades no eixo y
-
-		/* variáveis dos inimigos tipo 1 */
-		
-		int [] enemy1_states = new int[10];					// estados
-		double [] enemy1_X = new double[10];					// coordenadas x
-		double [] enemy1_Y = new double[10];					// coordenadas y
-		double [] enemy1_V = new double[10];					// velocidades
-		double [] enemy1_angle = new double[10];				// ângulos (indicam direção do movimento)
-		double [] enemy1_RV = new double[10];					// velocidades de rotação
-		double [] enemy1_explosion_start = new double[10];			// instantes dos inícios das explosões
-		double [] enemy1_explosion_end = new double[10];			// instantes dos finais da explosões
-		long [] enemy1_nextShoot = new long[10];				// instantes do próximo tiro
-		double enemy1_radius = 9.0;						// raio (tamanho do inimigo 1)
-		long nextEnemy1 = currentTime + 2000;					// instante em que um novo inimigo 1 deve aparecer
-		
-		/* variáveis dos inimigos tipo 2 */
-		
-		int [] enemy2_states = new int[10];					// estados
-		double [] enemy2_X = new double[10];					// coordenadas x
-		double [] enemy2_Y = new double[10];					// coordenadas y
-		double [] enemy2_V = new double[10];					// velocidades
-		double [] enemy2_angle = new double[10];				// ângulos (indicam direção do movimento)
-		double [] enemy2_RV = new double[10];					// velocidades de rotação
-		double [] enemy2_explosion_start = new double[10];			// instantes dos inícios das explosões
-		double [] enemy2_explosion_end = new double[10];			// instantes dos finais das explosões
-		double enemy2_spawnX = GameLib.WIDTH * 0.20;				// coordenada x do próximo inimigo tipo 2 a aparecer
-		int enemy2_count = 0;							// contagem de inimigos tipo 2 (usada na "formação de voo")
-		double enemy2_radius = 12.0;						// raio (tamanho aproximado do inimigo 2)
-		long nextEnemy2 = currentTime + 7000;					// instante em que um novo inimigo 2 deve aparecer
-		
-		/* variáveis dos projéteis lançados pelos inimigos (tanto tipo 1, quanto tipo 2) */
-		
-		int [] e_projectile_states = new int[200];				// estados
-		double [] e_projectile_X = new double[200];				// coordenadas x
-		double [] e_projectile_Y = new double[200];				// coordenadas y
-		double [] e_projectile_VX = new double[200];				// velocidade no eixo x
-		double [] e_projectile_VY = new double[200];				// velocidade no eixo y
-		double e_projectile_radius = 2.0;					// raio (tamanho dos projéteis inimigos)
-		
-		/* estrelas que formam o fundo de primeiro plano */
-		
-		double [] background1_X = new double[20];
-		double [] background1_Y = new double[20];
-		double background1_speed = 0.070;
-		double background1_count = 0.0;
-		
-		/* estrelas que formam o fundo de segundo plano */
-		
-		double [] background2_X = new double[50];
-		double [] background2_Y = new double[50];
-		double background2_speed = 0.045;
-		double background2_count = 0.0;
-		
-		/* inicializações */
-		
-		for(int i = 0; i < projectile_states.length; i++) projectile_states[i] = INACTIVE;
-		for(int i = 0; i < e_projectile_states.length; i++) e_projectile_states[i] = INACTIVE;
-		for(int i = 0; i < enemy1_states.length; i++) enemy1_states[i] = INACTIVE;
-		for(int i = 0; i < enemy2_states.length; i++) enemy2_states[i] = INACTIVE;
-		
-		for(int i = 0; i < background1_X.length; i++){
-			
-			background1_X[i] = Math.random() * GameLib.WIDTH;
-			background1_Y[i] = Math.random() * GameLib.HEIGHT;
-		}
-		
-		for(int i = 0; i < background2_X.length; i++){
-			
-			background2_X[i] = Math.random() * GameLib.WIDTH;
-			background2_Y[i] = Math.random() * GameLib.HEIGHT;
-		}
-						
 		/* iniciado interface gráfica */
 		
 		GameLib.initGraphics();
@@ -194,11 +67,6 @@ public class Main {
 		/*                                                                                               */
 		/*************************************************************************************************/
 		
-		List<EProjetil> projeteis = new ArrayList<>();
-		List<EProjetil> projeteis = new ArrayList<>();
-		List<EProjetil> projeteis = new ArrayList<>();
-		List<PProjetil> projeteis = new ArrayList<>();
-
 		while(running){
 		
 			/* Usada para atualizar o estado dos elementos do jogo    */

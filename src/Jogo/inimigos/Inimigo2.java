@@ -1,22 +1,34 @@
 package inimigos;
 
 import gamelib.GameLib;
+
+import java.awt.Color;
+
 import entidades.Player;
-import projéteis.EProjetil;
+import projéteis.*;
 import util.Contexto;
+
 
 public class Inimigo2 extends Inimigo {
     
+    static int maxInimigos = 10;
+
     static double radius = 12.0;
     static long nextEnemy;
-    static double enemy2_spawnX = GameLib.WIDTH * 0.20;
+    static double spawnX = GameLib.WIDTH*0.2;
     static int count = 0;
     
+
+
+    public Inimigo2(long currentTime){nextEnemy = currentTime + 7000}
+
+    public static int getMaxInimigos() {
+        return maxInimigos;
+    }
+
     public double getRadius() {
         return radius;
     }
-
-
 
 	public static long getNextEnemy() {
 		return nextEnemy;
@@ -28,7 +40,9 @@ public class Inimigo2 extends Inimigo {
 
 
     public void update(Contexto ctx){ 
-        
+
+        spawnX = ctx.getWIDTH()*0.20;
+
         if(recebeuBala(ctx)) explodir(ctx.getCurrentTime());
         
         if(confereEstado(ctx.getCurrentTime())){
@@ -69,29 +83,43 @@ public class Inimigo2 extends Inimigo {
                 double [] angles = { Math.PI/2 + Math.PI/8, Math.PI/2, Math.PI/2 - Math.PI/8 };
                 
                 for (int k = 0; k < angles.length; k++){
-                    
 
-                    if(ctx.projeteis.size() < ctx.maxProjeteis){
-                        
+
+                    Projetil p = encontrarEntidadeLivre(ctx.getEProjeteis());
+                    if(ctx.getEProjeteis().size() < EProjetil.getMaxProjetil()){
+
                         double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
                         double vx = Math.cos(a);
                         double vy = Math.sin(a);
-                            
-  
-                        EProjetil novo = new EProjetil();
-                        novo.setCord_x(cord_x);
-                        novo.setCord_y(cord_y);
-                        novo.setVelocity_X(vx * 0.30);
-                        novo.setVelocity_Y(vy * 0.30); 
-                        novo.setState(ACTIVE);
 
-                        ctx.projeteis.add(novo);
-                        ctx.colisores.add(novo);
+
+                        p.setCord_x(cord_x);
+                        p.setCord_y(cord_y);
+                        p.setVelocity_X(vx * 0.30);
+                        p.setVelocity_Y(vy * 0.30);
+                        p.setState(ACTIVE);
+
 
                     }
                 }
             }
         }
+
+
+        if(state == EXPLODING){
+            
+            double alpha = (ctx.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
+            GameLib.drawExplosion(cord_x, cord_y, alpha);
+        }
+        
+        if(state == ACTIVE){
+    
+            GameLib.setColor(Color.MAGENTA);
+            GameLib.drawDiamond(cord_x, cord_y, radius);
+        }
+
+
+
     }
 }
 

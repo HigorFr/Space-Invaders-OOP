@@ -12,7 +12,7 @@ import gamelib.GameLib;
 /*                                                                     */
 /***********************************************************************/
 
-public class MainBase {
+public class Base {
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */

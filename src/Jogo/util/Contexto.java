@@ -1,55 +1,162 @@
 package util;
 
-import inimigos.Inimigo;
-import projéteis.Projetil;
+import background.EstrelaFrente;
+import background.EstrelaTras;
+import gamelib.GameLib;
+import projéteis.*;
 import entidades.*;
+import inimigos.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Contexto {
-    public int maxProjeteis = 10;
-    public int maxInimigos = 10;
     public long delta;
     public long currentTime;
     public Player jogador;
-    public List<Entidade> colisores;
-    public List<Projetil> projeteis;
-    public List<Inimigo> inimigo;
+
+    public List<Projetil> Eprojeteis = new ArrayList<>();
+    public List<Projetil> Pprojeteis = new ArrayList<>();
+    public List<Inimigo> inimigo = new ArrayList<>();
+    public List<Movel> estrelas = new ArrayList<>();
 
 
-    public List<Entidade> getColisores() {
-        return colisores;
+
+    public boolean up;
+    public boolean down;
+    public boolean left;
+    public boolean right;
+    
+    public long WIDTH = GameLib.WIDTH;
+    public long HEIGHT = GameLib.HEIGHT;
+
+
+    public Contexto(){
+
+        currentTime = System.currentTimeMillis();
+
+        for (int i = 0; i < PProjetil.getMaxProjetil(); i++) {
+            Projetil novo = (Projetil) new PProjetil();
+            Pprojeteis.add(novo);
+        }
+
+        for (int i = 0; i < EProjetil.getMaxProjetil(); i++) {
+            Projetil novo = (Projetil) new EProjetil();
+            Eprojeteis.add(novo);
+        }
+
+
+
+        for (int i = 0; i < Inimigo1.getMaxInimigos(); i++) {
+            Inimigo novo = (Inimigo) new Inimigo1();
+            inimigo.add(novo);
+        }
+
+        for (int i = 0; i < Inimigo2.getMaxInimigos(); i++) {
+            Inimigo novo = (Inimigo) new Inimigo2();
+            inimigo.add(novo);
+        }
+
+
+
+        for (int i = 0; i < EstrelaFrente.getMaxEstrelas(); i++) {
+            Movel novo = (Movel) new EstrelaFrente();
+            estrelas.add(novo);
+        }
+
+        for (int i = 0; i < EstrelaTras.getMaxEstrelas(); i++) {
+            Movel novo = (Movel) new EstrelaTras();
+            estrelas.add(novo);
+
+        }
+    }
+
+
+    public long getWIDTH() {
+        return WIDTH;
+    }
+
+    public long getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public boolean isRight() {
+        return right;
     }
 
     public long getDelta() {
         return delta;
     }
+
     public void setDelta(long delta) {
         this.delta = delta;
     }
+
     public long getCurrentTime() {
         return currentTime;
     }
-    public void setCurrentTime(long currentTime) {
-        this.currentTime = currentTime;
-    }
-    public Player getJogador() {
-        return jogador;
-    }
+
+
+
+
     public void setJogador(Player jogador) {
         this.jogador = jogador;
     }
-    public List<Projetil> getProjeteis() {
-        return projeteis;
+    public List<Projetil> getEProjeteis() {
+        return Eprojeteis;
     }
-    public void setProjeteis(List<Projetil> projeteis) {
-        this.projeteis = projeteis;
+
+    public List<Projetil> getPProjeteis() {
+        return Pprojeteis;
     }
+
+
     public List<Inimigo> getInimigo() {
         return inimigo;
     }
-    public void setInimigo(List<Inimigo> inimigo) {
-        this.inimigo = inimigo;
+
+    public Player getJogador() {
+        return jogador;
     }
-    
+
+
+    public void update() {
+        currentTime = System.currentTimeMillis();
+
+        if (GameLib.iskeyPressed(GameLib.KEY_UP)) {
+            up = true;
+        } else {
+            up = false;
+        }
+
+        if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) {
+            down = true;
+        } else {
+            down = false;
+        }
+
+        if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) {
+            left = true;
+        } else {
+            left = false;
+        }
+
+        if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) {
+            right = true;
+        } else {
+            right = false;
+        }
+    }
 }
