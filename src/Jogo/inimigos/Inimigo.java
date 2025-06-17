@@ -1,8 +1,10 @@
-package jogo.inimigos;
-import jogo.GameLib;
-import jogo.entidades.Entidade;
-import jogo.util.Contexto;
-import jogo.projéteis.*;
+package inimigos;
+
+
+import gamelib.GameLib;
+import entidades.Entidade;
+import util.Contexto;
+import projéteis.*;
 
 public abstract class Inimigo extends Entidade{
 	double angle;				// ângulos (indicam direção do movimento)

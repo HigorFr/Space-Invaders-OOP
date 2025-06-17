@@ -1,7 +1,7 @@
-package jogo.inimigos;
+package inimigos;
 
-import jogo.projéteis.EProjetil;
-import jogo.util.Contexto;
+import projéteis.EProjetil;
+import util.Contexto;
 
 public class Inimigo1 extends Inimigo {
 

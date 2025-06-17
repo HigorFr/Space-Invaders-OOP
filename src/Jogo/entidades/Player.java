@@ -1,12 +1,13 @@
-package jogo.entidades;
+package entidades;
 
-import java.util.List;
 
-import jogo.GameLib;
+
+import gamelib.GameLib;
 //import jogo.projéteis.PProjetil;
-import jogo.projéteis.Projetil;
-import jogo.inimigos.Inimigo;
-import jogo.util.Contexto;
+import projéteis.Projetil;
+import java.util.List;
+import inimigos.Inimigo;
+import util.Contexto;
 
 
 public class Player extends Entidade {

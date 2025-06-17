@@ -1,5 +1,4 @@
-package jogo.entidades;
-import jogo.util.Contexto;
+package entidades;
 
 public abstract class Movel {
     public double cord_x;
@@ -23,37 +22,13 @@ public abstract class Movel {
         return velocity_X;
     }
     public void setVelocity_X(double velocity_X) {
-        this.velocity_X = avelocity_X;
+        this.velocity_X = velocity_X;
     }
     public double getVelocity_Y() {
         return velocity_Y;
     }
     public void setVelocity_Y(double velocity_Y) {
-        this.velocity_Y = avelocity_Y;
+        this.velocity_Y = velocity_Y;
     }
 
-
-
-}
-
-
-public abstract class Entidade extends Movel {
-    public static final int ACTIVE = 1;
-    public static final int INACTIVE = 0;
-    public static final int EXPLODING = 2;
-
-    public int state;
-
-
-    public int getState() {
-        return state;
-    }
-    public void setState(int state) {
-        this.state = state;
-    }
-    
-    public abstract double getRadius();
-    public abstract void update(Contexto ctx);
-
-    
 }

@@ -1,4 +1,4 @@
-package jogo.projéteis;
+package projéteis;
 
 
 public class PProjetil extends Projetil{

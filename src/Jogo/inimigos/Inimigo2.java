@@ -1,9 +1,9 @@
-package jogo.inimigos;
+package inimigos;
 
-import jogo.GameLib;
-import jogo.entidades.Player;
-import jogo.projéteis.EProjetil;
-import jogo.util.Contexto;
+import gamelib.GameLib;
+import entidades.Player;
+import projéteis.EProjetil;
+import util.Contexto;
 
 public class Inimigo2 extends Inimigo {
     

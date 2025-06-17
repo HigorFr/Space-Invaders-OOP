@@ -1,5 +1,5 @@
-package jogo.projéteis;
-import jogo.entidades.Entidade;
+package projéteis;
+import entidades.Entidade;
 
 
 public abstract class Projetil extends Entidade{   
@@ -17,19 +17,9 @@ public abstract class Projetil extends Entidade{
             }
         }  
     }
-
 }
 
 
-
-
-
-
-
-
-
-
-}
 
 
 

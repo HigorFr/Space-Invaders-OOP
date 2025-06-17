@@ -1,3 +1,6 @@
+import entidades.Movel;
+
+
 public class EstrelaFrente extends Movel{
     static double veolocity = 0.045;
     static double count = 0;

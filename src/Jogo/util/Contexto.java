@@ -1,8 +1,8 @@
 package util;
 
-import jogo.inimigos.Inimigo;
-import jogo.projéteis.Projetil;
-import jogo.entidades.*;
+import inimigos.Inimigo;
+import projéteis.Projetil;
+import entidades.*;
 import java.util.List;
 
 

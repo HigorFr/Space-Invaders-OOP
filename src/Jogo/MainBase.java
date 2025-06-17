@@ -1,5 +1,7 @@
 import java.awt.Color;
 
+import gamelib.GameLib;
+
 /***********************************************************************/
 /*                                                                     */
 /* Para jogar:                                                         */
