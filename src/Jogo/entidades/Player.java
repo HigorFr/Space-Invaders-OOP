@@ -3,8 +3,7 @@ package entidades;
 
 
 import gamelib.GameLib;
-//import jogo.projéteis.PProjetil;
-import projéteis.Projetil;
+import projéteis.*;
 import java.util.List;
 import inimigos.Inimigo;
 import util.Contexto;
@@ -16,7 +15,7 @@ public class Player extends Entidade {
     long nextShot;	
     double radius = 12.0;
 
-    //PProjetil[] projeteis = new PProjetil[10];
+
     public Player(long currentTime) {
         state = ACTIVE;
         cord_x = GameLib.WIDTH / 2;
@@ -25,9 +24,7 @@ public class Player extends Entidade {
         velocity_Y =  0.25;
         
         this.nextShot = currentTime;
-    //    for (int i = 0; i < 10; i++) {
-    //      projeteis[i] = new PProjetil();
-    //     }
+
     }
 
 
@@ -44,17 +41,7 @@ public class Player extends Entidade {
 
     public void update(Contexto ctx){
 
-        //Colisão Inimigo
 
-
-        for(Entidade e : ctx.getInimigo()){
-            
-            double dx = e.getCord_x() - this.cord_x;
-            double dy = e.getCord_y() - this.cord_y;
-            double dist = Math.sqrt(dx * dx + dy * dy);
-            
-            if(dist < (radius + e.getRadius()) * 0.8) explodir(ctx.getCurrentTime());
-        }
 
 
         //Colisão com Bala
@@ -68,22 +55,56 @@ public class Player extends Entidade {
             if(dist < (radius + e.getRadius()) * 0.8) explodir(ctx.getCurrentTime());
         }
 
+        //Colisão Inimigo
 
+
+        for(Entidade e : ctx.getInimigo()){
+
+            double dx = e.getCord_x() - this.cord_x;
+            double dy = e.getCord_y() - this.cord_y;
+            double dist = Math.sqrt(dx * dx + dy * dy);
+
+            if(dist < (radius + e.getRadius()) * 0.8) explodir(ctx.getCurrentTime());
+        }
 
 
 
         //Movimento
         long delta = ctx.getDelta();
-        if(ctx.isUp()) cord_x -= delta * velocity_X;
+        long currentTime = ctx.getCurrentTime();
+
+        if(ctx.isUp()) cord_y -= delta * velocity_Y;
         if(ctx.isDown()) cord_y += delta * velocity_Y;
         if(ctx.isLeft()) cord_x -= delta * velocity_X;
-        if(ctx.isRight()) cord_y += delta * velocity_Y;        
+        if(ctx.isRight()) cord_x += delta * velocity_X;
 
 
         if(cord_x < 0.0) cord_x = 0.0;
         if(cord_x >= ctx.getWIDTH()) cord_x = ctx.getWIDTH()- 1;
         if(cord_y < 25.0) cord_y = 25.0;
         if(cord_y >= ctx.getHEIGHT()) cord_y = ctx.getHEIGHT() - 1;
+
+
+
+        //Tiro
+        if(ctx.isCtrl()) {
+
+            if(currentTime > nextShot){
+
+                Projetil p = encontrarEntidadeLivre(ctx.getPProjeteis());
+
+                if(p != null && contarAtivos(ctx.getPProjeteis()) < PProjetil.getMaxProjetil()){
+
+                    p.setCord_x(cord_x);
+                    p.setCord_y(cord_y- 2 * radius);
+                    p.setVelocity_X(0.0);
+                    p.setVelocity_Y(-1.0);
+                    p.setState(ACTIVE);
+                    nextShot = currentTime + 100;
+                }
+            }
+        }
+
 
 
         //Respawn

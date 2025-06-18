@@ -20,15 +20,27 @@ public abstract class Entidade extends Movel {
     }
     
     public abstract double getRadius();
-    public abstract void update(Contexto ctx);
 
-    public <T extends Entidade> T encontrarEntidadeLivre(List<T> lista) {
+
+    public static <T extends Entidade> T encontrarEntidadeLivre(List<T> lista) {
         for (T e : lista) {
-            if (e.getState() == 0) {
+            if (e.getState() == INACTIVE) {
                 return e;
             }
         }
         return null;
     }
-    
+
+
+    public static <T extends Entidade> int contarAtivos(List<T> lista) {
+        int i = 0;
+        for (T e : lista) {
+            if (e.getState() == ACTIVE) {
+                i++;
+            }
+        }
+        return i;
+    }
+
+
 }

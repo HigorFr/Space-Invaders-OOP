@@ -24,8 +24,12 @@ public class PProjetil extends Projetil{
 
     public void update(Contexto ctx){
 
+
+
         if(state == ACTIVE){
-            
+
+            updateMove(ctx);
+
             GameLib.setColor(Color.GREEN);
             GameLib.drawLine(cord_x, cord_y - 5, cord_x, cord_y + 5);
             GameLib.drawLine(cord_x - 1, cord_y - 3, cord_x - 1, cord_y + 3);

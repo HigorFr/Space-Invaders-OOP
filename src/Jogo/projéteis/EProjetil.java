@@ -26,7 +26,8 @@ public class EProjetil extends Projetil{
     public void update(Contexto ctx){
 
         if(state == ACTIVE){
-            
+            updateMove(ctx);
+
             GameLib.setColor(Color.RED);
             GameLib.drawCircle(cord_x, cord_y, radius);
         }

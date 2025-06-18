@@ -13,6 +13,9 @@ import java.util.List;
 public class Contexto {
     public long delta;
     public long currentTime;
+
+
+
     public Player jogador;
 
     public List<Projetil> Eprojeteis = new ArrayList<>();
@@ -26,7 +29,11 @@ public class Contexto {
     public boolean down;
     public boolean left;
     public boolean right;
-    
+    public boolean escape;
+    public boolean ctrl;
+
+
+
     public long WIDTH = GameLib.WIDTH;
     public long HEIGHT = GameLib.HEIGHT;
 
@@ -48,12 +55,12 @@ public class Contexto {
 
 
         for (int i = 0; i < Inimigo1.getMaxInimigos(); i++) {
-            Inimigo novo = (Inimigo) new Inimigo1();
+            Inimigo novo = (Inimigo) new Inimigo1(currentTime);
             inimigo.add(novo);
         }
 
         for (int i = 0; i < Inimigo2.getMaxInimigos(); i++) {
-            Inimigo novo = (Inimigo) new Inimigo2();
+            Inimigo novo = (Inimigo) new Inimigo2(currentTime);
             inimigo.add(novo);
         }
 
@@ -71,6 +78,9 @@ public class Contexto {
         }
     }
 
+    public void setCurrentTime(long currentTime) {
+        this.currentTime = currentTime;
+    }
 
     public long getWIDTH() {
         return WIDTH;
@@ -96,6 +106,11 @@ public class Contexto {
         return right;
     }
 
+    public boolean isEscape() {return escape;}
+
+    public boolean isCtrl() {return ctrl;}
+
+
     public long getDelta() {
         return delta;
     }
@@ -108,6 +123,8 @@ public class Contexto {
         return currentTime;
     }
 
+
+    public List<Movel> getEstrelas() {return estrelas;}
 
 
 
@@ -158,5 +175,19 @@ public class Contexto {
         } else {
             right = false;
         }
+
+        if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+            ctrl = true;
+        } else {
+            ctrl = false;
+        }
+
+        if (GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) {
+            escape = true;
+        } else {
+            escape = false;
+        }
+
+
     }
 }

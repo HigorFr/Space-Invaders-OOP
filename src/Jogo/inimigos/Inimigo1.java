@@ -16,15 +16,13 @@ public class Inimigo1 extends Inimigo {
     static long nextEnemy;
 
 
-    public Inimigo1(long currentTime){nextEnemy = currentTime + 2000}
+    public Inimigo1(long currentTime){nextEnemy = currentTime + 2000;}
 
     public static int getMaxInimigos() {
         return maxInimigos;
     }
 
-    public double getRadius() {
-        return radius;
-    }
+    public double getRadius() {return radius;    }
     
 	public static long getNextEnemy() {return nextEnemy;}
 
@@ -32,23 +30,50 @@ public class Inimigo1 extends Inimigo {
 		Inimigo1.nextEnemy = nextEnemy;
 	}
 
+
+    public static void Spawner(Contexto ctx){
+        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo());
+        if(i != null && contarAtivos(ctx.getInimigo()) < maxInimigos) {
+            i.cord_x =  Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
+            i.cord_y = -10.0;
+            i.velocity_X = 0.2 + Math.random() * 0.15;
+            i.angle = (3*Math.PI) / 2;
+            i.RV = 0.0;
+            i.state = ACTIVE;
+            i.nextShoot = ctx.getCurrentTime() + 500;
+            nextEnemy = ctx.getCurrentTime() + 500;
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
     public void update(Contexto ctx){
-        
-        
-        if(recebeuBala(ctx)) explodir(ctx.getCurrentTime());
 
         long tempoAtual = ctx.getCurrentTime();
         long delta = ctx.getDelta();
 
+        if(recebeuBala(ctx)) explodir(tempoAtual);
+
+
+
+
         if(confereEstado(tempoAtual)){
-            cord_x += velocity_Y * Math.cos(angle) * delta;
-            cord_y += velocity_Y * Math.sin(angle) * delta * (-1.0);
+            cord_x += velocity_X * Math.cos(angle) * delta;
+            cord_y += velocity_X * Math.sin(angle) * delta * (-1.0);
             angle += RV * delta;
             
             if(tempoAtual > nextShoot && cord_y < ctx.getJogador().getCord_y()){
 
                 Projetil p = encontrarEntidadeLivre(ctx.getEProjeteis());
-                if(ctx.getEProjeteis().size() < EProjetil.getMaxProjetil()){
+                if(p != null && contarAtivos(ctx.getEProjeteis()) < EProjetil.getMaxProjetil()){
 
                     p.setCord_x(cord_x);
                     p.setCord_y(cord_y);
@@ -61,21 +86,21 @@ public class Inimigo1 extends Inimigo {
             }
         }
 
+        if(tempoAtual > nextEnemy) Spawner(ctx);
 
         if(state == EXPLODING){
             
             double alpha = (ctx.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
             GameLib.drawExplosion(cord_x, cord_y, alpha);
         }
+
+
         
         if(state == ACTIVE){
     
             GameLib.setColor(Color.CYAN);
             GameLib.drawCircle(cord_x, cord_y, radius);
         }
-
-
-
 
 
     }

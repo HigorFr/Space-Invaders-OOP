@@ -50,6 +50,7 @@ public abstract class Inimigo extends Entidade{
 
 
 
+
 	public boolean confereEstado(long tempoAtual) {
 		if(state == INACTIVE) return false;
 		
@@ -64,7 +65,7 @@ public abstract class Inimigo extends Entidade{
 		}
 
 		if(state == ACTIVE){
-			if(cord_y > GameLib.HEIGHT + 10) {
+			if(cord_y > GameLib.HEIGHT + 10 || cord_x > GameLib.WIDTH + 10 || cord_x < -10 || cord_y < -10) {
 				state = INACTIVE;
 				return false;
 			}

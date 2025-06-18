@@ -1,5 +1,7 @@
 package entidades;
 
+import util.Contexto;
+
 public abstract class Movel {
     public double cord_x;
     public double cord_y;
@@ -31,4 +33,5 @@ public abstract class Movel {
         this.velocity_Y = velocity_Y;
     }
 
+    public abstract void update(Contexto ctx);
 }

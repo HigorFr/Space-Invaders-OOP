@@ -4,9 +4,9 @@ import entidades.Movel;
 import util.Contexto;
 import gamelib.GameLib;
 
+import java.awt.*;
+
 public class EstrelaFrente extends Movel{
-
-
 
     static double count = 0.0;
     static double maxEstrelas = 20;
@@ -28,6 +28,7 @@ public class EstrelaFrente extends Movel{
 
 
     public void update(Contexto ctx){
+        GameLib.setColor(Color.GRAY);
         long delta = ctx.getDelta();
         count += velocity_X * delta;
         GameLib.fillRect(cord_x, (cord_y + count) % ctx.getHEIGHT(), 3, 3);

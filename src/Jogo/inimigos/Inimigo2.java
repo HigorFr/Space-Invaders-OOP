@@ -15,12 +15,17 @@ public class Inimigo2 extends Inimigo {
 
     static double radius = 12.0;
     static long nextEnemy;
-    static double spawnX = GameLib.WIDTH*0.2;
+    static double spawnX;
     static int count = 0;
     
 
 
-    public Inimigo2(long currentTime){nextEnemy = currentTime + 7000}
+    public Inimigo2(long currentTime){
+        nextEnemy = currentTime + 7000;
+        spawnX = GameLib.WIDTH *0.20;
+        velocity_X = 0.42;
+        velocity_Y = 0.0;
+    }
 
     public static int getMaxInimigos() {
         return maxInimigos;
@@ -39,20 +44,53 @@ public class Inimigo2 extends Inimigo {
 	}
 
 
-    public void update(Contexto ctx){ 
+    public static void Spawner(Contexto ctx){
 
-        spawnX = ctx.getWIDTH()*0.20;
+        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo());
+        if(i != null && contarAtivos(ctx.getInimigo()) < maxInimigos) {
+
+            i.cord_x =  spawnX;
+            i.cord_y = -10.0;
+            i.velocity_X = 0.42;
+            i.angle = (3*Math.PI) / 2;
+            i.RV = 0.0;
+            i.state = ACTIVE;
+
+            count++;
+
+
+            if(count < 10){
+                nextEnemy = ctx.getCurrentTime() + 120;
+            }
+            else{
+                count = 0;
+                spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8;
+                nextEnemy = (long) (ctx.getCurrentTime() + 3000 + Math.random() * 3000);
+
+
+            }
+        }
+
+    }
+
+
+
+
+
+    public void update(Contexto ctx){
+        long delta = ctx.getDelta();
+        long tempoAtual = ctx.getCurrentTime();
 
         if(recebeuBala(ctx)) explodir(ctx.getCurrentTime());
         
-        if(confereEstado(ctx.getCurrentTime())){
+        if(confereEstado(tempoAtual)){
             
-            double delta = ctx.getDelta();
+
 
             boolean shootNow = false;
             double previousY = cord_y;                      
-            cord_x += cord_x * Math.cos(angle) * delta;
-            cord_y += cord_y * Math.sin(angle) * delta * (-1.0);
+            cord_x += velocity_X * Math.cos(angle) * delta;
+            cord_y += velocity_X * Math.sin(angle) * delta * (-1.0);
             angle += RV * delta;
             
             double threshold = GameLib.HEIGHT * 0.30;
@@ -86,7 +124,7 @@ public class Inimigo2 extends Inimigo {
 
 
                     Projetil p = encontrarEntidadeLivre(ctx.getEProjeteis());
-                    if(ctx.getEProjeteis().size() < EProjetil.getMaxProjetil()){
+                    if(p != null && contarAtivos(ctx.getEProjeteis()) < EProjetil.getMaxProjetil()){
 
                         double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
                         double vx = Math.cos(a);
@@ -105,6 +143,7 @@ public class Inimigo2 extends Inimigo {
             }
         }
 
+        if(tempoAtual > nextEnemy) Spawner(ctx);
 
         if(state == EXPLODING){
             

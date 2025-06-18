@@ -1,7 +1,5 @@
 import java.awt.Color;
 
-import gamelib.GameLib;
-
 /***********************************************************************/
 /*                                                                     */
 /* Para jogar:                                                         */
@@ -12,7 +10,7 @@ import gamelib.GameLib;
 /*                                                                     */
 /***********************************************************************/
 
-public class Base {
+public class Main {
 	
 	/* Constantes relacionadas aos estados que os elementos   */
 	/* do jogo (player, projeteis ou inimigos) podem assumir. */
@@ -311,6 +309,7 @@ public class Base {
 				if(projectile_states[i] == ACTIVE){
 					
 					/* verificando se projétil saiu da tela */
+
 					if(projectile_Y[i] < 0) {
 						
 						projectile_states[i] = INACTIVE;
