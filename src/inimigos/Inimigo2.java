@@ -11,7 +11,7 @@ import util.Contexto;
 
 public class Inimigo2 extends Inimigo {
     
-    static int maxInimigos = 10;
+    static int maxInimigos = 100;
 
     static double radius = 12.0;
     static long nextEnemy;
@@ -46,8 +46,8 @@ public class Inimigo2 extends Inimigo {
 
     public static void Spawner(Contexto ctx){
 
-        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo());
-        if(i != null && contarAtivos(ctx.getInimigo()) < maxInimigos) {
+        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo2());
+        if(i != null && count < maxInimigos) {
 
             i.cord_x =  spawnX;
             i.cord_y = -10.0;
@@ -58,10 +58,11 @@ public class Inimigo2 extends Inimigo {
 
             count++;
 
-
             if(count < 10){
                 nextEnemy = ctx.getCurrentTime() + 120;
+                //nextEnemy = ctx.getCurrentTime() + 10;
             }
+
             else{
                 count = 0;
                 spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8;
@@ -70,8 +71,8 @@ public class Inimigo2 extends Inimigo {
 
             }
         }
-
     }
+
 
 
 
@@ -97,7 +98,7 @@ public class Inimigo2 extends Inimigo {
             
             if(previousY < threshold && cord_y >= threshold) {
                 
-                if(cord_x < GameLib.WIDTH / 2) RV = 0.003;
+                if(cord_x < GameLib.WIDTH / 2.0) RV = 0.003;
                 else RV = -0.003;
             }
             
@@ -143,7 +144,7 @@ public class Inimigo2 extends Inimigo {
             }
         }
 
-        if(tempoAtual > nextEnemy) Spawner(ctx);
+        //if(tempoAtual > nextEnemy) Spawner(ctx);
 
         if(state == EXPLODING){
             

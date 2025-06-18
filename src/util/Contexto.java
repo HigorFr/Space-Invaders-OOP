@@ -18,9 +18,14 @@ public class Contexto {
 
     public Player jogador;
 
+    public List<Entidade> colisores = new ArrayList<>();
+
     public List<Projetil> Eprojeteis = new ArrayList<>();
     public List<Projetil> Pprojeteis = new ArrayList<>();
-    public List<Inimigo> inimigo = new ArrayList<>();
+
+    public List<Inimigo> inimigos = new ArrayList<>();
+    public List<Inimigo> inimigo1 = new ArrayList<>();
+    public List<Inimigo> inimigo2 = new ArrayList<>();
     public List<Movel> estrelas = new ArrayList<>();
 
 
@@ -50,18 +55,23 @@ public class Contexto {
         for (int i = 0; i < EProjetil.getMaxProjetil(); i++) {
             Projetil novo = (Projetil) new EProjetil();
             Eprojeteis.add(novo);
+            colisores.add(novo);
         }
 
 
 
         for (int i = 0; i < Inimigo1.getMaxInimigos(); i++) {
-            Inimigo novo = (Inimigo) new Inimigo1(currentTime);
-            inimigo.add(novo);
+            Inimigo1 novo = (Inimigo1) new Inimigo1(currentTime);
+            inimigo1.add(novo);
+            inimigos.add(novo);
+            colisores.add(novo);
         }
 
         for (int i = 0; i < Inimigo2.getMaxInimigos(); i++) {
-            Inimigo novo = (Inimigo) new Inimigo2(currentTime);
-            inimigo.add(novo);
+            Inimigo2 novo = (Inimigo2) new Inimigo2(currentTime);
+            inimigo2.add(novo);
+            inimigos.add(novo);
+            colisores.add(novo);
         }
 
 
@@ -131,6 +141,7 @@ public class Contexto {
     public void setJogador(Player jogador) {
         this.jogador = jogador;
     }
+
     public List<Projetil> getEProjeteis() {
         return Eprojeteis;
     }
@@ -139,9 +150,16 @@ public class Contexto {
         return Pprojeteis;
     }
 
+    public List<Entidade> getColisores() {return colisores;}
 
-    public List<Inimigo> getInimigo() {
-        return inimigo;
+    public List<Inimigo> getInimigo() {return inimigos;}
+
+    public List<Inimigo> getInimigo1() {
+        return inimigo1;
+    }
+
+    public List<Inimigo> getInimigo2() {
+        return inimigo2;
     }
 
     public Player getJogador() {

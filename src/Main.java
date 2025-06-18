@@ -87,9 +87,17 @@ public class Main {
 			
 			/* colisões projeteis (player) - inimigos */
 
-			for(Inimigo i : ctx.getInimigo()){
+			if(ctx.getCurrentTime() > Inimigo1.getNextEnemy()) Inimigo1.Spawner(ctx);
+			if(ctx.getCurrentTime() > Inimigo2.getNextEnemy()) Inimigo2.Spawner(ctx);
+
+			for(Inimigo i : ctx.getInimigo1()){
 				i.update(ctx);
 			}
+
+			for(Inimigo i : ctx.getInimigo2()){
+				i.update(ctx);
+			}
+
 
 			/* projeteis (inimigo) */
 			for(Projetil p : ctx.getEProjeteis()){
@@ -111,6 +119,9 @@ public class Main {
 				e.update(ctx);
 			}
 
+
+
+
 			ctx.update();
 
 			/* chamada a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
@@ -120,6 +131,11 @@ public class Main {
 			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 3 ms. */
 			
 			busyWait(ctx.getCurrentTime() + 3);
+
+
+
+
+
 		}
 		
 		System.exit(0);

@@ -11,7 +11,7 @@ public class Inimigo1 extends Inimigo {
 
     static int maxInimigos = 10;
 
-
+    static int count = 0;
     static double radius = 9.0;
     static long nextEnemy;
 
@@ -32,8 +32,9 @@ public class Inimigo1 extends Inimigo {
 
 
     public static void Spawner(Contexto ctx){
-        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo());
-        if(i != null && contarAtivos(ctx.getInimigo()) < maxInimigos) {
+
+        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo1());
+        if(i != null && count < maxInimigos) {
             i.cord_x =  Math.random() * (GameLib.WIDTH - 20.0) + 10.0;
             i.cord_y = -10.0;
             i.velocity_X = 0.2 + Math.random() * 0.15;
@@ -42,20 +43,17 @@ public class Inimigo1 extends Inimigo {
             i.state = ACTIVE;
             i.nextShoot = ctx.getCurrentTime() + 500;
             nextEnemy = ctx.getCurrentTime() + 500;
+            count++;
 
+            //System.out.println("Spawnei: X=" + a + " | Instância: " + i.hashCode());
         }
 
     }
 
 
-
-
-
-
-
-
-
     public void update(Contexto ctx){
+
+        int state_ant = state;
 
         long tempoAtual = ctx.getCurrentTime();
         long delta = ctx.getDelta();
@@ -73,7 +71,7 @@ public class Inimigo1 extends Inimigo {
             if(tempoAtual > nextShoot && cord_y < ctx.getJogador().getCord_y()){
 
                 Projetil p = encontrarEntidadeLivre(ctx.getEProjeteis());
-                if(p != null && contarAtivos(ctx.getEProjeteis()) < EProjetil.getMaxProjetil()){
+                if(p != null && count < EProjetil.getMaxProjetil()){
 
                     p.setCord_x(cord_x);
                     p.setCord_y(cord_y);
@@ -86,7 +84,8 @@ public class Inimigo1 extends Inimigo {
             }
         }
 
-        if(tempoAtual > nextEnemy) Spawner(ctx);
+
+        //if(tempoAtual > nextEnemy) Spawner(ctx);
 
         if(state == EXPLODING){
             
@@ -101,6 +100,8 @@ public class Inimigo1 extends Inimigo {
             GameLib.setColor(Color.CYAN);
             GameLib.drawCircle(cord_x, cord_y, radius);
         }
+
+        if(state != ACTIVE && state_ant == ACTIVE) count--;
 
 
     }

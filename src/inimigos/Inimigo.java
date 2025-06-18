@@ -88,7 +88,6 @@ public abstract class Inimigo extends Entidade{
 	public boolean recebeuBala(Contexto ctx){
 		
 		for(Projetil p : ctx.getPProjeteis()){
-			if(p instanceof EProjetil) continue;
 
 			if(state == ACTIVE){
 			
