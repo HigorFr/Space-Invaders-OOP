@@ -1,0 +1,446 @@
+            // Generated from Java method: Main.main
+            // This is an experimental feature. Please report issues to https://github.com/ZenUml/jetbrains-zenuml/discussions
+            
+            Main.main(args) {
+  controle.Contexto ctx = new Contexto("src/config.txt")
+  new Contexto("src/config.txt")
+  System.currentTimeMillis()
+  for (i < getMaxEstrelas()) {
+    estrelas.add(novo)
+  }
+  for (i < getMaxEstrelas()) {
+    estrelas.add(novo)
+  }
+  ctx.setJogador(new Player())
+  try {
+    int vidas = Integer.parseInt(br.readLine())
+    Integer.parseInt(br.readLine())
+    ctx.getJogador().setVidas(vidas)
+  }
+  catch (IOException | NumberFormatException e) {
+    e.printStackTrace()
+  }
+  boolean running = true
+  ControladorFase cf = new ControladorFase(ctx.getArquivoConfig())
+  new ControladorFase(ctx.getArquivoConfig())
+  try {
+    br.readLine()
+    int numFases = Integer.parseInt(br.readLine())
+    Integer.parseInt(br.readLine())
+    for (i < numFases) {
+      fases.add(new Fase())
+    }
+  }
+  catch (IOException e) {
+    e.printStackTrace()
+  }
+  GameLib.initGraphics()
+  new MyFrame("Projeto COO")
+  super(title)
+  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+  frame.setSize(WIDTH, HEIGHT)
+  frame.setResizable(false)
+  frame.setVisible(true)
+  new MyKeyAdapter()
+  new ()
+
+  new ()
+
+  frame.addKeyListener(keyboard)
+  frame.requestFocus()
+  frame.createBufferStrategy(2)
+  frame.getBufferStrategy().getDrawGraphics()
+  while (running) {
+    ctx.setDelta(System.currentTimeMillis() - ctx.getCurrentTime())
+    ctx.getJogador().update(ctx)
+    long currentTime = ctx.getCurrentTime()
+    ctx.getCurrentTime()
+    return currentTime
+    long delta = ctx.getDelta()
+    ctx.getDelta()
+    return delta
+    if (invencivel && currentTime > invencivelFim) {
+    }
+    if (state == ACTIVE && !invencivel) {
+      for (e : ctx.getColisores()) {
+        double dx = e.getCord_x() - this.cord_x
+        e.getCord_x()
+        return cord_x
+        double dy = e.getCord_y() - this.cord_y
+        e.getCord_y()
+        return cord_y
+        double dist = Math.sqrt(dx * dx + dy * dy)
+        Math.sqrt(dx * dx + dy * dy)
+        if (dist < (radius + e.getRadius()) * 0.8) {
+          explodir(currentTime)
+        }
+      }
+    }
+    if (state == ACTIVE) {
+      for (p : ctx.getPowerUp()) {
+        double dx = p.getCord_x() - this.cord_x
+        p.getCord_x()
+        return cord_x
+        double dy = p.getCord_y() - this.cord_y
+        p.getCord_y()
+        return cord_y
+        double dist = Math.sqrt(dx * dx + dy * dy)
+        Math.sqrt(dx * dx + dy * dy)
+        if (dist < (radius + p.getRadius()) * 0.8) {
+          p.Colidiu()
+        }
+      }
+    }
+    if (state == ACTIVE) {
+      if (ctx.isUp()) {
+      }
+      if (ctx.isDown()) {
+      }
+      if (ctx.isLeft()) {
+      }
+      if (ctx.isRight()) {
+      }
+      if (cord_x < 0.0) {
+      }
+      if (cord_x >= ctx.getWIDTH()) {
+        ctx.getWIDTH()
+        return WIDTH
+      }
+      if (cord_y < 25.0) {
+      }
+      if (cord_y >= ctx.getHEIGHT()) {
+        ctx.getHEIGHT()
+        return HEIGHT
+      }
+      if (ctx.isCtrl() && currentTime > nextShot) {
+        Projetil p = new PProjetil()
+        new PProjetil()
+        p.setCord_x(cord_x)
+        p.setCord_y(cord_y - 2 * radius)
+        p.setVelocity_X(0.0)
+        p.setVelocity_Y(-1.0)
+        p.setState(ACTIVE)
+        ctx.addPProjetil(p)
+        Pprojeteis.add(p)
+      }
+    }
+    if (state == EXPLODING && currentTime > explosion_end) {
+      if (vidas > 0) {
+      }
+      else {
+      }
+    }
+    if (state == EXPLODING) {
+      double alpha = (currentTime - explosion_start) / (explosion_end - explosion_start)
+      GameLib.drawExplosion(cord_x, cord_y, alpha)
+      int p = 5
+      int r = (int) (255 - Math.pow(alpha, p) * 255)
+      Math.pow(alpha, p)
+      int g = (int) (128 - Math.pow(alpha, p) * 128)
+      Math.pow(alpha, p)
+      int b = 0
+      GameLib.setColor(new Color())
+      g.setColor(c)
+      GameLib.drawCircle(x, y, alpha * alpha * 40)
+      int x = (int) Math.round(cx - radius)
+      Math.round(cx - radius)
+      int y = (int) Math.round(cy - radius)
+      Math.round(cy - radius)
+      int width = (int) Math.round(2 * radius)
+      Math.round(2 * radius)
+      int height = (int) Math.round(2 * radius)
+      Math.round(2 * radius)
+      g.drawOval(x, y, width, height)
+      GameLib.drawCircle(x, y, alpha * alpha * 40 + 1)
+      int x = (int) Math.round(cx - radius)
+      Math.round(cx - radius)
+      int y = (int) Math.round(cy - radius)
+      Math.round(cy - radius)
+      int width = (int) Math.round(2 * radius)
+      Math.round(2 * radius)
+      int height = (int) Math.round(2 * radius)
+      Math.round(2 * radius)
+      g.drawOval(x, y, width, height)
+    }
+    else {
+      if (state == ACTIVE) {
+        if (invencivel && (currentTime / 100) % 2 == 0) {
+          setCor(Color.YELLOW)
+        }
+        else {
+          setCor(Color.BLUE)
+        }
+        GameLib.drawPlayer(cord_x, cord_y, radius, cor)
+        GameLib.setColor(cor)
+        g.setColor(c)
+        GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y - player_size)
+        g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+        GameLib.drawLine(player_X + player_size, player_Y + player_size, player_X, player_Y - player_size)
+        g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+        GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y + player_size * 0.5)
+        g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+        GameLib.drawLine(player_X + player_size, player_Y + player_size, player_X, player_Y + player_size * 0.5)
+        g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+      }
+    }
+    for (i < vidas) {
+      GameLib.setColor(Color.RED)
+      g.setColor(c)
+      GameLib.drawDiamond(30 + i * 25, 50, 10)
+      int x1 = (int) Math.round(x)
+      Math.round(x)
+      int y1 = (int) Math.round(y - radius)
+      Math.round(y - radius)
+      int x2 = (int) Math.round(x + radius)
+      Math.round(x + radius)
+      int y2 = (int) Math.round(y)
+      Math.round(y)
+      int x3 = (int) Math.round(x)
+      Math.round(x)
+      int y3 = (int) Math.round(y + radius)
+      Math.round(y + radius)
+      int x4 = (int) Math.round(x - radius)
+      Math.round(x - radius)
+      int y4 = (int) Math.round(y)
+      Math.round(y)
+      drawLine(x1, y1, x2, y2)
+      g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+      drawLine(x2, y2, x3, y3)
+      g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+      drawLine(x3, y3, x4, y4)
+      g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+      drawLine(x4, y4, x1, y1)
+      g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+    }
+    cf.update(ctx)
+    GameLib.setColor(Color.WHITE)
+    g.setColor(c)
+    GameLib.drawText("Fase: " + (faseAtual + 1), GameLib.WIDTH - 80, 60)
+    g.drawString(text, (int)Math.round(x), (int)Math.round(y))
+    if (emTransicao) {
+      GameLib.drawText("FASE " + (faseAtual + 1), GameLib.WIDTH / 2 - 30, GameLib.HEIGHT / 2)
+      g.drawString(text, (int)Math.round(x), (int)Math.round(y))
+      if (ctx.getCurrentTime() - inicioCooldown >= DURACAO_COOLDOWN) {
+        if (faseAtual < fases.size()) {
+          fases.get(faseAtual).iniciar(ctx.getCurrentTime())
+        }
+      }
+      return
+    }
+    if (faseAtual >= fases.size() && !finalizado) {
+      return
+    }
+    Fase fase = fases.get(faseAtual)
+    fases.get(faseAtual)
+    if (!fase.isIniciada() && !finalizado) {
+      iniciarFaseAtual(ctx.getCurrentTime())
+      fases.get(faseAtual).iniciar(tempoAtual)
+    }
+    fase.update(ctx)
+    boolean ant_chefeVivo = chefeVivo
+    ctx.getBossativo()
+    return bossativo
+    if (ant_chefeVivo && !chefeVivo) {
+    }
+    long tempoFase = ctx.getCurrentTime() - tempoInicio
+    ctx.getCurrentTime()
+    return currentTime
+    while (indexEvento < eventos.size() && eventos.get(indexEvento).tempo <= tempoFase) {
+      Evento e = eventos.get(indexEvento)
+      eventos.get(indexEvento)
+      Spawner.Spawnar(e.objeto, e.tipo, e.vida, e.x, e.y, ctx)
+      Inimigo i = new Inimigo1(ctx.getCurrentTime(), x, y)
+      new Inimigo1(ctx.getCurrentTime(), x, y)
+      Math.random()
+      ctx.addInimigoTipo1(i)
+      inimigo1.add(i)
+      inimigos.add(i)
+      colisores.add(i)
+      Inimigo j = new Inimigo2(x, y)
+      new Inimigo2(x, y)
+      ctx.addInimigoTipo2(j)
+      inimigo2.add(i)
+      inimigos.add(i)
+      colisores.add(i)
+      Inimigo i = new Chefe1(vida,x, y)
+      new Chefe1(vida, x, y)
+      ctx.setBossativo(i)
+      Inimigo a = new Chefe2(vida,x, y)
+      new Chefe2(vida, x, y)
+      ctx.setBossativo(a)
+      PowerUp g = new PowerUp1(x,y)
+      new PowerUp1(x, y)
+      ctx.addPowerUp(g)
+      powerusps.add(i)
+      PowerUp l = new PowerUp2(x,y)
+      new PowerUp2(x, y)
+      ctx.addPowerUp(l)
+      powerusps.add(i)
+    }
+    if (fase.isFinalizada(ctx)) {
+      if (faseAtual < fases.size()) {
+        ctx.getCurrentTime()
+        return currentTime
+      }
+      else {
+        GameLib.drawText("VOCÊ VENCEU", GameLib.WIDTH / 2 - 30, GameLib.HEIGHT / 2)
+        g.drawString(text, (int)Math.round(x), (int)Math.round(y))
+        GameLib.drawText("APERTE ESC PARA SAIR", GameLib.WIDTH / 2 - 60, GameLib.HEIGHT / 2 + 20)
+        g.drawString(text, (int)Math.round(x), (int)Math.round(y))
+      }
+    }
+    for (i : ctx.getInimigo1()) {
+      i.update(ctx)
+    }
+    for (i : ctx.getPowerUp()) {
+      i.update(ctx)
+      long tempoAtual = ctx.getCurrentTime()
+      ctx.getCurrentTime()
+      return currentTime
+      long delta = ctx.getDelta()
+      ctx.getDelta()
+      return delta
+      Player j = ctx.getJogador()
+      ctx.getJogador()
+      return jogador
+      if (confereEstado() && !colidiu) {
+        Math.cos(angle)
+        Math.sin(angle)
+        desenhar(tempoAtual)
+        float hue = (tempoAtual % 5000) / 5000f
+        Color corAnimada = Color.getHSBColor(hue, 1.0f, 1.0f)
+        Color.getHSBColor(hue, 1.0f, 1.0f)
+        GameLib.setColor(corAnimada)
+        g.setColor(c)
+        GameLib.fillCircle(cord_x, cord_y, getRadius())
+        int x = (int) Math.round(cx - radius)
+        Math.round(cx - radius)
+        int y = (int) Math.round(cy - radius)
+        Math.round(cy - radius)
+        int diameter = (int) Math.round(radius * 2)
+        Math.round(radius * 2)
+        g.fillOval(x, y, diameter, diameter)
+      }
+      if (confereEstado() && colidiu) {
+        if (!aplicado) {
+          aplicar(ctx.getJogador(), tempoAtual)
+        }
+        else {
+          GameLib.drawPlayer(j.getCord_x(), j.getCord_y(), 18, Color.BLUE)
+          GameLib.setColor(cor)
+          g.setColor(c)
+          GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y - player_size)
+          g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+          GameLib.drawLine(player_X + player_size, player_Y + player_size, player_X, player_Y - player_size)
+          g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+          GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y + player_size * 0.5)
+          g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+          GameLib.drawLine(player_X + player_size, player_Y + player_size, player_X, player_Y + player_size * 0.5)
+          g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2))
+          if (tempoAtual - inicio >= duracao) {
+            remover(ctx.getJogador())
+          }
+        }
+      }
+    }
+    for (i : ctx.getInimigo1()) {
+      i.update(ctx)
+    }
+    for (i : ctx.getInimigo2()) {
+      i.update(ctx)
+    }
+    for (p : ctx.getEProjeteis()) {
+      p.update(ctx)
+    }
+    for (p : ctx.getPProjeteis()) {
+      p.update(ctx)
+    }
+    if (ctx.isEscape()) {
+    }
+    for (e : ctx.getEstrelas()) {
+      e.update(ctx)
+    }
+    if (ctx.getBossativo() != null) {
+      ctx.getBossativo().update(ctx)
+    }
+    ctx.update()
+    System.currentTimeMillis()
+    if (GameLib.iskeyPressed(GameLib.KEY_UP)) {
+    }
+    else {
+    }
+    if (GameLib.iskeyPressed(GameLib.KEY_DOWN)) {
+    }
+    else {
+    }
+    if (GameLib.iskeyPressed(GameLib.KEY_LEFT)) {
+    }
+    else {
+    }
+    if (GameLib.iskeyPressed(GameLib.KEY_RIGHT)) {
+    }
+    else {
+    }
+    if (GameLib.iskeyPressed(GameLib.KEY_CONTROL)) {
+    }
+    else {
+    }
+    if (GameLib.iskeyPressed(GameLib.KEY_ESCAPE)) {
+    }
+    else {
+    }
+    if (jogador.getState() == Entidade.EXPLODING) {
+      for (p : powerusps) {
+        if (p.isAplicado()) {
+          p.remover(jogador)
+        }
+      }
+    }
+    if (jogador.getState() == Entidade.INACTIVE) {
+      GameLib.setColor(Color.WHITE)
+      g.setColor(c)
+      GameLib.drawText("GAME OVER", (GameLib.WIDTH/2.0)-52, GameLib.HEIGHT/2.0)
+      g.drawString(text, (int)Math.round(x), (int)Math.round(y))
+    }
+    clearAllInactive()
+    clear(colisores)
+    lista.removeIf(lambda)
+    clear(Eprojeteis)
+    lista.removeIf(lambda)
+    clear(Pprojeteis)
+    lista.removeIf(lambda)
+    clear(inimigos)
+    lista.removeIf(lambda)
+    clear(inimigo1)
+    lista.removeIf(lambda)
+    clear(inimigo2)
+    lista.removeIf(lambda)
+    clear(powerusps)
+    lista.removeIf(lambda)
+    clearBoss()
+    if (this.bossativo != null && this.bossativo.getState() == 0) {
+    }
+    GameLib.display()
+    if (g != null) {
+      if (safe_mode) {
+        frame.getBufferStrategy().getDrawGraphics().drawImage(buffer, 0, 0, null)
+        frame.getBufferStrategy().show()
+        Toolkit.getDefaultToolkit().sync()
+      }
+      else {
+        g.dispose()
+        frame.getBufferStrategy().show()
+        Toolkit.getDefaultToolkit().sync()
+        frame.getBufferStrategy().getDrawGraphics()
+      }
+      g.setColor(Color.BLACK)
+      g.fillRect(0, 0, frame.getWidth() - 1, frame.getHeight() - 1)
+      g.setColor(Color.WHITE)
+    }
+    busyWait(ctx.getCurrentTime() + 20)
+    while (System.currentTimeMillis() < time) {
+      Thread.yield()
+    }
+  }
+  System.exit(0)
+}
