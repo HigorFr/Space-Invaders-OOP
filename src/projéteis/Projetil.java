@@ -4,6 +4,14 @@ import util.Contexto;
 
 public abstract class Projetil extends Entidade{   
 
+
+
+    double radius;
+
+    public double getRadius() {
+        return radius;
+    }
+
     public void updateMove(Contexto ctx){
         long delta = ctx.getDelta();
         long Maxheight = ctx.getHEIGHT();

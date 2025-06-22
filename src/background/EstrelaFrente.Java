@@ -9,11 +9,6 @@ import java.awt.*;
 public class EstrelaFrente extends Movel{
 
     static double count = 0.0;
-    static double maxEstrelas = 20;
-
-
-
-
 
     public EstrelaFrente(){
         cord_x = Math.random() * GameLib.WIDTH;
@@ -22,9 +17,7 @@ public class EstrelaFrente extends Movel{
 
     }
 
-    public static double getMaxEstrelas() {
-        return maxEstrelas;
-    }
+
 
 
     public void update(Contexto ctx){

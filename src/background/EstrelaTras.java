@@ -8,11 +8,7 @@ import java.awt.*;
 
 public class EstrelaTras extends Movel{
 
-    static double count = 0.0;
-    static double maxEstrelas = 50;
-
-
-
+    private  static double count = 0.0;
 
 
     public EstrelaTras(){
@@ -20,8 +16,6 @@ public class EstrelaTras extends Movel{
         cord_y = Math.random() * GameLib.HEIGHT;
         velocity_X = 0.045;
     }
-
-    public static double getMaxEstrelas() {return maxEstrelas;}
 
 
     public void update(Contexto ctx){
@@ -31,6 +25,4 @@ public class EstrelaTras extends Movel{
         GameLib.fillRect(cord_x, (cord_y + count) % ctx.getHEIGHT(), 2, 2);
 
     }
-
-
 }

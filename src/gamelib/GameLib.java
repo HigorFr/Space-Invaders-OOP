@@ -91,7 +91,9 @@ public class GameLib {
 		
 		g.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2), (int) Math.round(y2));
 	}
-	
+
+
+
 	public static void drawCircle(double cx, double cy, double radius){
 		
 		int x = (int) Math.round(cx - radius);
@@ -101,7 +103,9 @@ public class GameLib {
 		
 		g.drawOval(x, y, width, height);
 	}
-	
+
+
+
 	public static void drawDiamond(double x, double y, double radius){
 		
 		int x1 = (int) Math.round(x);
@@ -122,8 +126,9 @@ public class GameLib {
 		drawLine(x4, y4, x1, y1);
 	}
 	
-	public static void drawPlayer(double player_X, double player_Y, double player_size){
-		
+	public static void drawPlayer(double player_X, double player_Y, double player_size, Color cor){
+
+		GameLib.setColor(cor);
 		GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y - player_size);
 		GameLib.drawLine(player_X + player_size, player_Y + player_size, player_X, player_Y - player_size);
 		GameLib.drawLine(player_X - player_size, player_Y + player_size, player_X, player_Y + player_size * 0.5);
@@ -141,15 +146,56 @@ public class GameLib {
 		GameLib.drawCircle(x, y, alpha * alpha * 40);
 		GameLib.drawCircle(x, y, alpha * alpha * 40 + 1);
 	}
-	
+
+
+
+	//Parte que eu adicionei
+
 	public static void fillRect(double cx, double cy, double width, double height){
-		
+
 		int x = (int) Math.round(cx - width/2);
 		int y = (int) Math.round(cy - height/2);
-		
+
 		g.fillRect(x, y, (int) Math.round(width), (int) Math.round(height));
 	}
-	
+
+
+	public static void fillCircle(double cx, double cy, double radius) {
+		int x = (int) Math.round(cx - radius);
+		int y = (int) Math.round(cy - radius);
+		int diameter = (int) Math.round(radius * 2);
+
+		g.fillOval(x, y, diameter, diameter);
+	}
+
+
+	public static void drawText(String text, double x, double y) {
+		g.drawString(text, (int)Math.round(x), (int)Math.round(y));
+	}
+
+
+	public static void drawRotatedDiamond(double cx, double cy, double radius, double angle) {
+		int[] x = new int[4];
+		int[] y = new int[4];
+
+		for (int i = 0; i < 4; i++) {
+			double theta = angle + Math.PI / 2 * i;
+			x[i] = (int) Math.round(cx + Math.cos(theta) * radius);
+			y[i] = (int) Math.round(cy + Math.sin(theta) * radius);
+		}
+
+		g.drawLine(x[0], y[0], x[1], y[1]);
+		g.drawLine(x[1], y[1], x[2], y[2]);
+		g.drawLine(x[2], y[2], x[3], y[3]);
+		g.drawLine(x[3], y[3], x[0], y[0]);
+	}
+
+
+
+
+
+
+
 	public static void display(){
 
 		if(g != null){

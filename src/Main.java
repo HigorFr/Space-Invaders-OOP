@@ -1,11 +1,16 @@
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import gamelib.GameLib;
+import powerup.PowerUp;
 import util.Contexto;
 import background.*;
 import entidades.*;
 import inimigos.*;
 import projéteis.*;
+import util.ControladorFase;
 
 
 /***********************************************************************/
@@ -33,12 +38,20 @@ public class Main {
 	
 	public static void main(String [] args){
 
-		util.Contexto ctx = new Contexto();
+		util.Contexto ctx = new Contexto("src/config.txt");
 		ctx.setJogador(new Player(ctx.getCurrentTime()));
+
+		try (BufferedReader br = new BufferedReader(new FileReader(ctx.getArquivoConfig()))) {
+			int vidas = Integer.parseInt(br.readLine());
+			ctx.getJogador().setVidas(vidas);
+		} catch (IOException | NumberFormatException e) {
+			e.printStackTrace();
+		}
 
 
 		boolean running = true;
 
+		ControladorFase cf = new ControladorFase(ctx.getArquivoConfig());
 
 
 
@@ -83,12 +96,28 @@ public class Main {
 			/***************************/
 			/* Atualizações de estados */
 			/***************************/
+
+
+
 			ctx.getJogador().update(ctx);
-			
+
+
+			//Spawner
+
+			cf.update(ctx);
+
 			/* colisões projeteis (player) - inimigos */
 
-			if(ctx.getCurrentTime() > Inimigo1.getNextEnemy()) Inimigo1.Spawner(ctx);
-			if(ctx.getCurrentTime() > Inimigo2.getNextEnemy()) Inimigo2.Spawner(ctx);
+
+			for(Inimigo i : ctx.getInimigo1()){
+				i.update(ctx);
+			}
+
+
+			for(PowerUp i : ctx.getPowerUp()){
+				i.update(ctx);
+			}
+
 
 			for(Inimigo i : ctx.getInimigo1()){
 				i.update(ctx);
@@ -114,15 +143,18 @@ public class Main {
 			
 
 			/* Fundo */
-
 			for(Movel e : ctx.getEstrelas()){
 				e.update(ctx);
 			}
 
-
+			//BOSS
+			if(ctx.getBossativo() != null) {
+				ctx.getBossativo().update(ctx);
+			}
 
 
 			ctx.update();
+
 
 			/* chamada a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
@@ -130,7 +162,7 @@ public class Main {
 			
 			/* faz uma pausa de modo que cada execução do laço do main loop demore aproximadamente 3 ms. */
 			
-			busyWait(ctx.getCurrentTime() + 3);
+			busyWait(ctx.getCurrentTime() + 20);
 
 
 

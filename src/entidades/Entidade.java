@@ -1,8 +1,4 @@
 package entidades;
-import util.Contexto;
-import java.util.List;
-
-
 
 public abstract class Entidade extends Movel {
     public static final int ACTIVE = 1;
@@ -21,26 +17,6 @@ public abstract class Entidade extends Movel {
     
     public abstract double getRadius();
 
-
-    public static <T extends Entidade> T encontrarEntidadeLivre(List<T> lista) {
-        for (T e : lista) {
-            if (e.getState() == INACTIVE) {
-                return e;
-            }
-        }
-        return null;
-    }
-
-
-    public static <T extends Entidade> int contarAtivos(List<T> lista) {
-        int i = 0;
-        for (T e : lista) {
-            if (e.getState() == ACTIVE) {
-                i++;
-            }
-        }
-        return i;
-    }
 
 
 }

@@ -3,11 +3,10 @@ package powerup;
 import entidades.Player;
 import java.awt.*;
 
-public class PowerUp1 extends  PowerUp{
+public class PowerUp2 extends  PowerUp{
 
-
-    public PowerUp1(double x,double y){
-        duracao = 5000;
+    public PowerUp2(double x,double y){
+        duracao = 8000;
         angle = (3 * Math.PI) / 2;
         cord_x = x;
         cord_y = y;
@@ -26,16 +25,15 @@ public class PowerUp1 extends  PowerUp{
             inicio = tempoAtual;
             aplicado = true;
 
-
-            p.setVelocity_Y(p.getVelocity_Y()*2);
-            p.setVelocity_X(p.getVelocity_X()*2);
-       }
+            p.setCor(Color.cyan);
+            p.setShootcooldown(10);
+        }
     }
 
 
     public void remover(Player p) {
-        p.setVelocity_Y(p.getVelocity_Y()/2);
-        p.setVelocity_X(p.getVelocity_X()/2);
+        p.setShootcooldown(100);
         state = INACTIVE;
     }
+
 }

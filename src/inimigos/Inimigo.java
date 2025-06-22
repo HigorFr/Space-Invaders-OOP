@@ -6,13 +6,15 @@ import entidades.Entidade;
 import util.Contexto;
 import projéteis.*;
 
+import java.awt.*;
+
 public abstract class Inimigo extends Entidade{
 	double angle;				// ângulos (indicam direção do movimento)
 	double RV;					// velocidades de rotação
 	double explosion_start;			// instantes dos inícios das explosões
 	double explosion_end;			// instantes dos finais da explosões
 	long nextShoot;				// instantes do próximo tiro
-
+	long cooldowndano = 0;
 
 
 
@@ -57,14 +59,18 @@ public abstract class Inimigo extends Entidade{
 		
 		
 		if(state == EXPLODING){
-				
-			if(tempoAtual > explosion_end){		
+			if(tempoAtual > explosion_end) {
 				state = INACTIVE;
 				return false;
 			}
+
+			double alpha = (tempoAtual - explosion_start) / (explosion_end - explosion_start);
+			GameLib.drawExplosion(cord_x, cord_y, alpha);
+
 		}
 
 		if(state == ACTIVE){
+
 			if(cord_y > GameLib.HEIGHT + 10 || cord_x > GameLib.WIDTH + 10 || cord_x < -10 || cord_y < -10) {
 				state = INACTIVE;
 				return false;
@@ -72,6 +78,7 @@ public abstract class Inimigo extends Entidade{
 
 			return true;
 		}
+
 
 		return false;
 	}
@@ -89,18 +96,23 @@ public abstract class Inimigo extends Entidade{
 		
 		for(Projetil p : ctx.getPProjeteis()){
 
-			if(state == ACTIVE){
+			if(state == ACTIVE && p.getState() == ACTIVE){
 			
 				double dx = cord_x - p.getCord_x();
 				double dy = cord_y - p.getCord_y();
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				
-				if(dist < getRadius()) return true;
+				if(dist < getRadius()){
+					p.setState(INACTIVE);
+					return true;
+				}
+
 			}			
 
 		}
 		return false;
 	}
+
 
 
 

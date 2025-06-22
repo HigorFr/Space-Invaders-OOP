@@ -1,8 +1,11 @@
 package util;
 
+import java.awt.*;
+import java.util.Iterator;
 import background.EstrelaFrente;
 import background.EstrelaTras;
 import gamelib.GameLib;
+import powerup.PowerUp;
 import projéteis.*;
 import entidades.*;
 import inimigos.*;
@@ -14,7 +17,7 @@ public class Contexto {
     public long delta;
     public long currentTime;
 
-
+    String arquivoConfig;
 
     public Player jogador;
 
@@ -23,12 +26,20 @@ public class Contexto {
     public List<Projetil> Eprojeteis = new ArrayList<>();
     public List<Projetil> Pprojeteis = new ArrayList<>();
 
+
+
+
+    public int maxEstrelas = 50;
+
+
     public List<Inimigo> inimigos = new ArrayList<>();
     public List<Inimigo> inimigo1 = new ArrayList<>();
     public List<Inimigo> inimigo2 = new ArrayList<>();
     public List<Movel> estrelas = new ArrayList<>();
+    public List<PowerUp> powerusps = new ArrayList<>();
 
 
+    public Inimigo bossativo;
 
     public boolean up;
     public boolean down;
@@ -42,51 +53,112 @@ public class Contexto {
     public long WIDTH = GameLib.WIDTH;
     public long HEIGHT = GameLib.HEIGHT;
 
+    public int getMaxEstrelas() {
+        return maxEstrelas;
+    }
 
-    public Contexto(){
+    public void setBossativo(Inimigo bossativo) {
+        this.bossativo = bossativo;
+    }
+
+
+    public Inimigo getBossativo() {
+        return bossativo;
+    }
+
+
+
+    public String getArquivoConfig() {
+        return arquivoConfig;
+    }
+
+
+    public void addEProjetil(Projetil p) {
+        Eprojeteis.add(p);
+        colisores.add(p);
+    }
+
+    public void addPProjetil(Projetil p) {
+        Pprojeteis.add(p);
+    }
+
+    public void addInimigoTipo1(Inimigo i) {
+        inimigo1.add(i);
+        inimigos.add(i);
+        colisores.add(i);// opcional: mantém também na lista geral
+    }
+
+    public void addInimigoTipo2(Inimigo i) {
+        inimigo2.add(i);
+        inimigos.add(i);
+        colisores.add(i);   // opcional
+    }
+
+    public void addPowerUp(PowerUp i) {
+        powerusps.add(i);
+    }
+
+
+
+
+
+    public void addEstrela(Movel e) {
+        estrelas.add(e);
+    }
+
+
+    public Contexto(String configPath){
 
         currentTime = System.currentTimeMillis();
 
-        for (int i = 0; i < PProjetil.getMaxProjetil(); i++) {
-            Projetil novo = (Projetil) new PProjetil();
-            Pprojeteis.add(novo);
-        }
+        arquivoConfig = configPath;
 
-        for (int i = 0; i < EProjetil.getMaxProjetil(); i++) {
-            Projetil novo = (Projetil) new EProjetil();
-            Eprojeteis.add(novo);
-            colisores.add(novo);
-        }
-
-
-
-        for (int i = 0; i < Inimigo1.getMaxInimigos(); i++) {
-            Inimigo1 novo = (Inimigo1) new Inimigo1(currentTime);
-            inimigo1.add(novo);
-            inimigos.add(novo);
-            colisores.add(novo);
-        }
-
-        for (int i = 0; i < Inimigo2.getMaxInimigos(); i++) {
-            Inimigo2 novo = (Inimigo2) new Inimigo2(currentTime);
-            inimigo2.add(novo);
-            inimigos.add(novo);
-            colisores.add(novo);
-        }
-
-
-
-        for (int i = 0; i < EstrelaFrente.getMaxEstrelas(); i++) {
+        for (int i = 0; i < getMaxEstrelas(); i++) {
             Movel novo = (Movel) new EstrelaFrente();
             estrelas.add(novo);
         }
 
-        for (int i = 0; i < EstrelaTras.getMaxEstrelas(); i++) {
+        for (int i = 0; i < getMaxEstrelas(); i++) {
             Movel novo = (Movel) new EstrelaTras();
             estrelas.add(novo);
 
         }
+
     }
+
+
+
+
+
+    public <T extends Entidade> void clear(List<T> lista) {
+        Iterator<T> it = lista.iterator();
+        while (it.hasNext()) {
+            T e = it.next();
+            if (e.getState() == Entidade.INACTIVE) {
+                it.remove();
+            }
+        }
+    }
+
+    public void clearBoss() {
+        if (this.bossativo != null && this.bossativo.getState() == 0) {
+            this.bossativo = null;
+        }
+    }
+
+
+
+    public void clearAllInactive(){
+        clear(colisores);
+        clear(Eprojeteis);
+        clear(Pprojeteis);
+        clear(inimigos);
+        clear(inimigo1);
+        clear(inimigo2);
+        clear(powerusps);
+        clearBoss();
+    }
+
 
     public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
@@ -150,6 +222,10 @@ public class Contexto {
         return Pprojeteis;
     }
 
+    public List<PowerUp> getPowerUp() {
+        return powerusps;
+    }
+
     public List<Entidade> getColisores() {return colisores;}
 
     public List<Inimigo> getInimigo() {return inimigos;}
@@ -169,6 +245,7 @@ public class Contexto {
 
     public void update() {
         currentTime = System.currentTimeMillis();
+
 
         if (GameLib.iskeyPressed(GameLib.KEY_UP)) {
             up = true;
@@ -207,5 +284,11 @@ public class Contexto {
         }
 
 
+        if(jogador.getState() == Entidade.INACTIVE){
+            GameLib.setColor(Color.WHITE);
+            GameLib.drawText("GAME OVER",(GameLib.WIDTH/2.0)-52,GameLib.HEIGHT/2.0);
+        }
+
+        clearAllInactive();
     }
 }

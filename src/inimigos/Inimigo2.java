@@ -1,81 +1,28 @@
 package inimigos;
-
 import gamelib.GameLib;
-
 import java.awt.Color;
-
-import entidades.Player;
 import projéteis.*;
 import util.Contexto;
 
 
 public class Inimigo2 extends Inimigo {
     
-    static int maxInimigos = 100;
 
     static double radius = 12.0;
-    static long nextEnemy;
-    static double spawnX;
-    static int count = 0;
-    
 
-
-    public Inimigo2(long currentTime){
-        nextEnemy = currentTime + 7000;
-        spawnX = GameLib.WIDTH *0.20;
+    public Inimigo2(double x, double y) {
+        cord_x = x;
+        cord_y = y;
         velocity_X = 0.42;
         velocity_Y = 0.0;
+        angle = (3 * Math.PI) / 2;
+        state = ACTIVE;
     }
 
-    public static int getMaxInimigos() {
-        return maxInimigos;
-    }
 
     public double getRadius() {
         return radius;
     }
-
-	public static long getNextEnemy() {
-		return nextEnemy;
-	}
-    
-	public static void setNextEnemy(long nextEnemy) {
-		Inimigo2.nextEnemy = nextEnemy;
-	}
-
-
-    public static void Spawner(Contexto ctx){
-
-        Inimigo i = encontrarEntidadeLivre(ctx.getInimigo2());
-        if(i != null && count < maxInimigos) {
-
-            i.cord_x =  spawnX;
-            i.cord_y = -10.0;
-            i.velocity_X = 0.42;
-            i.angle = (3*Math.PI) / 2;
-            i.RV = 0.0;
-            i.state = ACTIVE;
-
-            count++;
-
-            if(count < 10){
-                nextEnemy = ctx.getCurrentTime() + 120;
-                //nextEnemy = ctx.getCurrentTime() + 10;
-            }
-
-            else{
-                count = 0;
-                spawnX = Math.random() > 0.5 ? GameLib.WIDTH * 0.2 : GameLib.WIDTH * 0.8;
-                nextEnemy = (long) (ctx.getCurrentTime() + 3000 + Math.random() * 3000);
-
-
-            }
-        }
-    }
-
-
-
-
 
 
     public void update(Contexto ctx){
@@ -124,42 +71,31 @@ public class Inimigo2 extends Inimigo {
                 for (int k = 0; k < angles.length; k++){
 
 
-                    Projetil p = encontrarEntidadeLivre(ctx.getEProjeteis());
-                    if(p != null && contarAtivos(ctx.getEProjeteis()) < EProjetil.getMaxProjetil()){
-
-                        double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
-                        double vx = Math.cos(a);
-                        double vy = Math.sin(a);
+                    Projetil p = new EProjetil();
 
 
-                        p.setCord_x(cord_x);
-                        p.setCord_y(cord_y);
-                        p.setVelocity_X(vx * 0.30);
-                        p.setVelocity_Y(vy * 0.30);
-                        p.setState(ACTIVE);
+                    double a = angles[k] + Math.random() * Math.PI/6 - Math.PI/12;
+                    double vx = Math.cos(a);
+                    double vy = Math.sin(a);
 
 
-                    }
+                    p.setCord_x(cord_x);
+                    p.setCord_y(cord_y);
+                    p.setVelocity_X(vx * 0.30);
+                    p.setVelocity_Y(vy * 0.30);
+                    p.setState(ACTIVE);
+
+                    ctx.addEProjetil(p);
+
+
+
                 }
+
             }
-        }
 
-        //if(tempoAtual > nextEnemy) Spawner(ctx);
-
-        if(state == EXPLODING){
-            
-            double alpha = (ctx.getCurrentTime() - explosion_start) / (explosion_end - explosion_start);
-            GameLib.drawExplosion(cord_x, cord_y, alpha);
-        }
-        
-        if(state == ACTIVE){
-    
             GameLib.setColor(Color.MAGENTA);
             GameLib.drawDiamond(cord_x, cord_y, radius);
         }
-
-
-
     }
 }
 

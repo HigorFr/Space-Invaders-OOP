@@ -5,26 +5,17 @@ import java.awt.Color;
 
 
 public class PProjetil extends Projetil{
-    private static final double radius = 0.0;
-    private static final int maxProjetil = 200;
+
+
     public PProjetil(){
-        this.state = INACTIVE;
+        this.state = ACTIVE;
+        radius = 1.0;
     }
 
     @Override
-    public double getRadius() {
-        return radius;
-    }
-
-
-
-
-    static public int getMaxProjetil() {return maxProjetil;}
 
 
     public void update(Contexto ctx){
-
-
 
         if(state == ACTIVE){
 
