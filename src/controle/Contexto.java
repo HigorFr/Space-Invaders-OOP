@@ -16,22 +16,13 @@ import java.util.List;
 public class Contexto {
     public long delta;
     public long currentTime;
-
     String arquivoConfig;
-
     public Player jogador;
-
-    public List<Entidade> colisores = new ArrayList<>();
-
-    public List<Projetil> Eprojeteis = new ArrayList<>();
-    public List<Projetil> Pprojeteis = new ArrayList<>();
-
-
-
-
     public int maxEstrelas = 50;
 
-
+    public List<Entidade> colisores = new ArrayList<>();
+    public List<Projetil> Eprojeteis = new ArrayList<>();
+    public List<Projetil> Pprojeteis = new ArrayList<>();
     public List<Inimigo> inimigos = new ArrayList<>();
     public List<Inimigo> inimigo1 = new ArrayList<>();
     public List<Inimigo> inimigo2 = new ArrayList<>();
@@ -65,7 +56,6 @@ public class Contexto {
     public Inimigo getBossativo() {
         return bossativo;
     }
-
 
 
     public String getArquivoConfig() {
@@ -102,10 +92,6 @@ public class Contexto {
 
 
 
-    public void addEstrela(Movel e) {
-        estrelas.add(e);
-    }
-
 
     public Contexto(String configPath){
 
@@ -131,13 +117,7 @@ public class Contexto {
 
 
     public <T extends Entidade> void clear(List<T> lista) {
-        Iterator<T> it = lista.iterator();
-        while (it.hasNext()) {
-            T e = it.next();
-            if (e.getState() == Entidade.INACTIVE) {
-                it.remove();
-            }
-        }
+        lista.removeIf(e -> e.getState() == Entidade.INACTIVE);
     }
 
     public void clearBoss() {
@@ -145,8 +125,6 @@ public class Contexto {
             this.bossativo = null;
         }
     }
-
-
 
     public void clearAllInactive(){
         clear(colisores);
@@ -159,10 +137,6 @@ public class Contexto {
         clearBoss();
     }
 
-
-    public void setCurrentTime(long currentTime) {
-        this.currentTime = currentTime;
-    }
 
     public long getWIDTH() {
         return WIDTH;
@@ -192,7 +166,6 @@ public class Contexto {
 
     public boolean isCtrl() {return ctrl;}
 
-
     public long getDelta() {
         return delta;
     }
@@ -200,15 +173,11 @@ public class Contexto {
     public void setDelta(long delta) {
         this.delta = delta;
     }
-
     public long getCurrentTime() {
         return currentTime;
     }
 
-
     public List<Movel> getEstrelas() {return estrelas;}
-
-
 
     public void setJogador(Player jogador) {
         this.jogador = jogador;
@@ -228,15 +197,15 @@ public class Contexto {
 
     public List<Entidade> getColisores() {return colisores;}
 
-    public List<Inimigo> getInimigo() {return inimigos;}
+    public List<Inimigo> getInimigo() {return inimigos;} //
 
     public List<Inimigo> getInimigo1() {
         return inimigo1;
-    }
+    } //
 
     public List<Inimigo> getInimigo2() {
         return inimigo2;
-    }
+    } //
 
     public Player getJogador() {
         return jogador;
@@ -283,6 +252,12 @@ public class Contexto {
             escape = false;
         }
 
+        //Apagar powerups quando morre
+        if(jogador.getState() == Entidade.EXPLODING){
+            for(PowerUp p : powerusps){
+                if(p.isAplicado()) p.setState(Entidade.INACTIVE);
+            }
+        }
 
         if(jogador.getState() == Entidade.INACTIVE){
             GameLib.setColor(Color.WHITE);

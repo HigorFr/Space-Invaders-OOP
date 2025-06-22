@@ -15,6 +15,7 @@ public class ControladorFase {
     private boolean emTransicao = false;
     private long inicioCooldown = 0;
     private final long DURACAO_COOLDOWN = 3000;
+    private boolean finalizado = false;
 
     public ControladorFase(String configPath) {
         try (BufferedReader br = new BufferedReader(new FileReader(configPath))) {
@@ -37,8 +38,6 @@ public class ControladorFase {
 
     public void update(Contexto ctx) {
         GameLib.setColor(Color.WHITE);
-
-
         GameLib.drawText("Fase: " + (faseAtual + 1), GameLib.WIDTH - 80, 60);
 
 
@@ -57,11 +56,11 @@ public class ControladorFase {
         }
 
 
-        if (faseAtual >= fases.size()) return;
+        if (faseAtual >= fases.size() && !finalizado) return;
 
         Fase fase = fases.get(faseAtual);
 
-        if (!fase.isIniciada()) iniciarFaseAtual(ctx.getCurrentTime());
+        if (!fase.isIniciada() && !finalizado) iniciarFaseAtual(ctx.getCurrentTime());
 
         fase.update(ctx);
 
@@ -72,9 +71,9 @@ public class ControladorFase {
                 emTransicao = true;
                 inicioCooldown = ctx.getCurrentTime();
             } else {
-
+                faseAtual--;
                 GameLib.drawText("VOCÊ VENCEU", GameLib.WIDTH / 2 - 30, GameLib.HEIGHT / 2);
-                System.out.println("Todas as fases finalizadas!");
+                GameLib.drawText("APERTE ESC PARA SAIR", GameLib.WIDTH / 2 - 60, GameLib.HEIGHT / 2 + 20);
             }
         }
     }
