@@ -1,8 +1,5 @@
-package util;
+package controle;
 import entidades.Spawner;
-import inimigos.Inimigo;
-import inimigos.Inimigo1;
-import inimigos.Inimigo2;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

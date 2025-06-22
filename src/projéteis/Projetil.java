@@ -1,6 +1,6 @@
 package projéteis;
 import entidades.Entidade;
-import util.Contexto;
+import controle.Contexto;
 
 public abstract class Projetil extends Entidade{   
 

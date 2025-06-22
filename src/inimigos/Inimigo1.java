@@ -2,7 +2,7 @@ package inimigos;
 
 import projéteis.EProjetil;
 import projéteis.Projetil;
-import util.Contexto;
+import controle.Contexto;
 import gamelib.GameLib;
 import java.awt.Color;
 

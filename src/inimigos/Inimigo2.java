@@ -2,7 +2,7 @@ package inimigos;
 import gamelib.GameLib;
 import java.awt.Color;
 import projéteis.*;
-import util.Contexto;
+import controle.Contexto;
 
 
 public class Inimigo2 extends Inimigo {

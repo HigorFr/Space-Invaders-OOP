@@ -1,16 +1,14 @@
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 import gamelib.GameLib;
 import powerup.PowerUp;
-import util.Contexto;
-import background.*;
+import controle.Contexto;
 import entidades.*;
 import inimigos.*;
 import projéteis.*;
-import util.ControladorFase;
+import controle.ControladorFase;
 
 
 /***********************************************************************/
@@ -38,7 +36,7 @@ public class Main {
 	
 	public static void main(String [] args){
 
-		util.Contexto ctx = new Contexto("src/config.txt");
+		controle.Contexto ctx = new Contexto("src/config.txt");
 		ctx.setJogador(new Player(ctx.getCurrentTime()));
 
 		try (BufferedReader br = new BufferedReader(new FileReader(ctx.getArquivoConfig()))) {
@@ -91,7 +89,7 @@ public class Main {
 			/* Já a variável "currentTime" nos dá o timestamp atual.  */
 
 			ctx.setDelta(System.currentTimeMillis() - ctx.getCurrentTime());
-			ctx.setCurrentTime(System.currentTimeMillis());
+
 
 			/***************************/
 			/* Atualizações de estados */

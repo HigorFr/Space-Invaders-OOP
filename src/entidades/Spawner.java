@@ -4,7 +4,7 @@ import inimigos.*;
 import powerup.PowerUp;
 import powerup.PowerUp1;
 import powerup.PowerUp2;
-import util.Contexto;
+import controle.Contexto;
 
 public class Spawner{
     public static void Spawnar(String objeto, String tipo, long vida, double x, double y, Contexto ctx) {

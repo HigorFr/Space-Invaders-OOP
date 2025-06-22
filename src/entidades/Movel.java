@@ -1,6 +1,6 @@
 package entidades;
 
-import util.Contexto;
+import controle.Contexto;
 
 public abstract class Movel {
     public double cord_x;

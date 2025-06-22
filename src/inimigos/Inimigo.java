@@ -3,10 +3,8 @@ package inimigos;
 
 import gamelib.GameLib;
 import entidades.Entidade;
-import util.Contexto;
+import controle.Contexto;
 import projéteis.*;
-
-import java.awt.*;
 
 public abstract class Inimigo extends Entidade{
 	double angle;				// ângulos (indicam direção do movimento)

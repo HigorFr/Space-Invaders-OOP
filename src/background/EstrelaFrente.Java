@@ -1,7 +1,7 @@
 package background;
 
 import entidades.Movel;
-import util.Contexto;
+import controle.Contexto;
 import gamelib.GameLib;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ public class EstrelaFrente extends Movel{
     public EstrelaFrente(){
         cord_x = Math.random() * GameLib.WIDTH;
         cord_y = Math.random() * GameLib.HEIGHT;
-        velocity_X = 0.07;
+        velocity_X = 0.007;
 
     }
 

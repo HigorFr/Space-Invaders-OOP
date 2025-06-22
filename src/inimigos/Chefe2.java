@@ -1,9 +1,7 @@
 package inimigos;
 
 import gamelib.GameLib;
-import projéteis.EProjetil;
-import projéteis.Projetil;
-import util.Contexto;
+import controle.Contexto;
 
 import java.awt.*;
 

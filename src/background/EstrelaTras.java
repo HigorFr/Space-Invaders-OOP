@@ -1,7 +1,7 @@
 package background;
 
 import entidades.Movel;
-import util.Contexto;
+import controle.Contexto;
 import gamelib.GameLib;
 
 import java.awt.*;
@@ -14,7 +14,7 @@ public class EstrelaTras extends Movel{
     public EstrelaTras(){
         cord_x = Math.random() * GameLib.WIDTH;
         cord_y = Math.random() * GameLib.HEIGHT;
-        velocity_X = 0.045;
+        velocity_X = 0.0045;
     }
 
 

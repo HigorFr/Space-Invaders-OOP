@@ -3,7 +3,7 @@ package powerup;
 import entidades.Entidade;
 import entidades.Player;
 import gamelib.GameLib;
-import util.Contexto;
+import controle.Contexto;
 
 import java.awt.*;
 
@@ -11,6 +11,8 @@ public abstract class PowerUp extends Entidade {
 
 
     public  boolean colidiu = false;
+
+
     boolean aplicado = false;
     long inicio;
     long duracao;
@@ -21,6 +23,11 @@ public abstract class PowerUp extends Entidade {
     public  abstract void aplicar(Player p, long tempoAtual);
     public  abstract void remover(Player p);
 
+
+
+    public boolean isAplicado() {
+        return aplicado;
+    }
 
     public void Colidiu() {
         this.colidiu = true;

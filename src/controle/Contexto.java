@@ -1,7 +1,7 @@
-package util;
+package controle;
 
 import java.awt.*;
-import java.util.Iterator;
+
 import background.EstrelaFrente;
 import background.EstrelaTras;
 import gamelib.GameLib;
@@ -255,7 +255,7 @@ public class Contexto {
         //Apagar powerups quando morre
         if(jogador.getState() == Entidade.EXPLODING){
             for(PowerUp p : powerusps){
-                if(p.isAplicado()) p.setState(Entidade.INACTIVE);
+                if(p.isAplicado()) p.remover(jogador);
             }
         }
 

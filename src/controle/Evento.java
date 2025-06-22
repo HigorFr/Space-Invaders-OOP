@@ -1,6 +1,4 @@
-package util;
-
-import entidades.Entidade;
+package controle;
 
 public class Evento {
     public long tempo;

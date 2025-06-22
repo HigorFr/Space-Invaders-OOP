@@ -3,8 +3,7 @@ package entidades;
 import gamelib.GameLib;
 import powerup.PowerUp;
 import projéteis.*;
-import java.util.List;
-import util.Contexto;
+import controle.Contexto;
 import java.awt.Color;
 
 public class Player extends Entidade {

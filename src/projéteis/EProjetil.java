@@ -1,6 +1,6 @@
 package projéteis;
 import gamelib.GameLib;
-import util.Contexto;
+import controle.Contexto;
 import java.awt.Color;
 
 public class EProjetil extends Projetil{
