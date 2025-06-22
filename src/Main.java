@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import controle.Updater;
 import gamelib.GameLib;
 import powerup.PowerUp;
 import controle.Contexto;
@@ -96,63 +97,13 @@ public class Main {
 			/***************************/
 
 
-
-			ctx.getJogador().update(ctx);
-
-
-			//Spawner
-
 			cf.update(ctx);
-
-			/* colisões projeteis (player) - inimigos */
-
-
-			for(Inimigo i : ctx.getInimigo1()){
-				i.update(ctx);
-			}
-
-
-			for(PowerUp i : ctx.getPowerUp()){
-				i.update(ctx);
-			}
-
-
-			for(Inimigo i : ctx.getInimigo1()){
-				i.update(ctx);
-			}
-
-			for(Inimigo i : ctx.getInimigo2()){
-				i.update(ctx);
-			}
-
-
-			/* projeteis (inimigo) */
-			for(Projetil p : ctx.getEProjeteis()){
-				p.update(ctx);
-			}
-
-			/* projeteis (player) */
-			for(Projetil p : ctx.getPProjeteis()){
-				p.update(ctx);
-			}
-
-
-			if(ctx.isEscape()) running = false;
-			
-
-			/* Fundo */
-			for(Movel e : ctx.getEstrelas()){
-				e.update(ctx);
-			}
-
-			//BOSS
-			if(ctx.getBossativo() != null) {
-				ctx.getBossativo().update(ctx);
-			}
-
 
 			ctx.update();
 
+			Updater.update(ctx);
+
+			if(ctx.isEscape()) running = false;
 
 			/* chamada a display() da classe GameLib atualiza o desenho exibido pela interface do jogo. */
 			
