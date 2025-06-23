@@ -52,10 +52,13 @@ public class Inimigo1 extends Inimigo {
 
                 nextShoot = (long) (tempoAtual + 200 + Math.random() * 500);
 
-                GameLib.setColor(Color.CYAN);
-                GameLib.drawCircle(cord_x, cord_y, getRadius());
+
+
 
             }
+
+            GameLib.setColor(Color.CYAN);
+            GameLib.drawCircle(cord_x, cord_y, getRadius());
         }
     }
 }
